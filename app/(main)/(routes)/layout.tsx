@@ -1,5 +1,7 @@
-const MainRoutesLayout = ({ children }: { children: React.ReactNode }) => {
-  return <div className="p-12">{children}</div>;
+import { ReactNode } from "react";
+
+const RouteLayout = ({ children }: { children: ReactNode }) => {
+  return <div>{children}</div>;
 };
 
-export default MainRoutesLayout;
+export default RouteLayout;

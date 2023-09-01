@@ -6,7 +6,7 @@ module.exports = {
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
-	],
+  ],
   theme: {
     container: {
       center: true,
@@ -50,6 +50,12 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        discord: {
+          gray1: "#424549",
+          gray2: "#36393e",
+          gray3: "#282b30",
+          gray4: "#1e2124",
+        }
       },
       borderRadius: {
         lg: "var(--radius)",

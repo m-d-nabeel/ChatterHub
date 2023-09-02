@@ -1,3 +1,5 @@
+"use client";
+
 import { MemberRole } from "@prisma/client";
 import { ServerWithMembersWithProfiles } from "@/types";
 import {
@@ -16,6 +18,7 @@ import {
   UserPlus2Icon,
   UsersIcon,
 } from "lucide-react";
+import { useModal } from "@/hooks/use-modal-store";
 
 const ServerHeader = ({
   server,
@@ -26,6 +29,7 @@ const ServerHeader = ({
 }) => {
   const isAdmin = role === MemberRole.ADMIN;
   const isModerator = isAdmin || role === MemberRole.MODERATOR;
+  const { onOpen } = useModal();
 
   return (
     <DropdownMenu>
@@ -37,39 +41,58 @@ const ServerHeader = ({
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56 space-y-1 border-transparent bg-discord-gray4 contrast-[1.05]">
         {isModerator && (
-          <DropdownMenuItem className="w-full cursor-pointer px-3 py-2 text-indigo-500">
+          <DropdownMenuItem
+            id="dropdown-menu-item"
+            className="w-full cursor-pointer px-3 py-2 text-indigo-500"
+            onClick={() => onOpen("invitation", { server })}
+          >
             Invite People
             <UserPlus2Icon className="ml-auto h-4 w-4" />
           </DropdownMenuItem>
         )}
         {isAdmin && (
-          <DropdownMenuItem className="w-full cursor-pointer px-3 py-2 text-muted-foreground">
+          <DropdownMenuItem
+            id="dropdown-menu-item"
+            className="w-full cursor-pointer px-3 py-2 text-muted-foreground"
+          >
             Server Settings
             <SettingsIcon className="ml-auto h-4 w-4" />{" "}
           </DropdownMenuItem>
         )}
 
         {isModerator && (
-          <DropdownMenuItem className="w-full cursor-pointer px-3 py-2 text-muted-foreground">
+          <DropdownMenuItem
+            id="dropdown-menu-item"
+            className="w-full cursor-pointer px-3 py-2 text-muted-foreground"
+          >
             Manage Members
             <UsersIcon className="ml-auto h-4 w-4" />
           </DropdownMenuItem>
         )}
         {isModerator && (
-          <DropdownMenuItem className="w-full cursor-pointer px-3 py-2 text-muted-foreground">
+          <DropdownMenuItem
+            id="dropdown-menu-item"
+            className="w-full cursor-pointer px-3 py-2 text-muted-foreground"
+          >
             Create Channel
             <PlusCircleIcon className="ml-auto h-4 w-4" />
           </DropdownMenuItem>
         )}
         {isModerator && <DropdownMenuSeparator />}
         {isAdmin && (
-          <DropdownMenuItem className="w-full cursor-pointer px-3 py-2 text-rose-500 ">
-            Delete Channel
+          <DropdownMenuItem
+            id="dropdown-menu-item"
+            className="w-full cursor-pointer px-3 py-2 text-rose-500 "
+          >
+            Delete Server
             <TrashIcon className="ml-auto h-4 w-4" />
           </DropdownMenuItem>
         )}
         {!isAdmin && (
-          <DropdownMenuItem className="w-full cursor-pointer px-3 py-2 text-rose-500 ">
+          <DropdownMenuItem
+            id="dropdown-menu-item"
+            className="w-full cursor-pointer px-3 py-2 text-rose-500 "
+          >
             Leave Server
             <LogOutIcon className="ml-auto h-4 w-4" />
           </DropdownMenuItem>

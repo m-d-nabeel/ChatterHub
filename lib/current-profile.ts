@@ -25,7 +25,7 @@ export const currentProfile = async () => {
     });
     return newProfile;
   } catch (error) {
-    console.error("[CURRENT_PROFILE] Error creating profile");
+    console.error("currentProfile Server Error", error);
     throw error;
   }
 };

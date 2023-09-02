@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import axios from "axios";
 import { generate } from "random-words";
+import { useRef } from "react";
 
 // local imports
 import {
@@ -29,7 +30,6 @@ import { Button } from "../ui/button";
 import FileUpload from "../file-upload";
 import { useToast } from "../ui/use-toast";
 import { useModal } from "@/hooks/use-modal-store";
-import { useEffect, useRef } from "react";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -54,14 +54,12 @@ const CreateServelModal = () => {
   });
   const isLoading = form.formState.isLoading;
   const randomServerNameRef = useRef("");
-  useEffect(() => {
-    randomServerNameRef.current = generate({
-      exactly: 2,
-      minLength: 4,
-      maxLength: 10,
-      join: " ",
-    });
-  }, [isModalOpen]);
+  randomServerNameRef.current = generate({
+    exactly: 2,
+    minLength: 4,
+    maxLength: 10,
+    join: " ",
+  });
 
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
     try {

@@ -81,3 +81,7 @@ body,
     --gray1: #424549;
   }
 }
+
+#dropdown-menu-item:hover {
+  background-color: var(--gray1);
+}

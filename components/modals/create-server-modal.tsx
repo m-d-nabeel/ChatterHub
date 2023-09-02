@@ -2,6 +2,13 @@
 
 import { useRouter } from "next/navigation";
 
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import axios from "axios";
+import { generate } from "random-words";
+
+// local imports
 import {
   Dialog,
   DialogContent,
@@ -9,12 +16,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import axios from "axios";
-
-// local imports
 import {
   Form,
   FormControl,
@@ -25,9 +26,10 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { useEffect, useState } from "react";
 import FileUpload from "../file-upload";
 import { useToast } from "../ui/use-toast";
+import { useModal } from "@/hooks/use-modal-store";
+import { useEffect, useRef } from "react";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -38,12 +40,11 @@ const formSchema = z.object({
   }),
 });
 
-const InitialModal = ({ name }: { name: string }) => {
-  const [isMounted, setIsMounted] = useState(false);
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
+const CreateServelModal = () => {
+  const router = useRouter();
+  const { toast } = useToast();
+  const { isOpen, onClose, type } = useModal();
+  const isModalOpen = isOpen && type === "createServer";
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -51,15 +52,22 @@ const InitialModal = ({ name }: { name: string }) => {
       imageUrl: "",
     },
   });
-
-  const router = useRouter();
-
-  const { toast } = useToast();
+  const isLoading = form.formState.isLoading;
+  const randomServerNameRef = useRef("");
+  useEffect(() => {
+    randomServerNameRef.current = generate({
+      exactly: 2,
+      minLength: 4,
+      maxLength: 10,
+      join: " ",
+    });
+  }, [isModalOpen]);
 
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       await axios.post("/api/servers", values);
       form.reset();
+      onClose();
       router.refresh();
     } catch (error) {
       console.error(error);
@@ -68,15 +76,13 @@ const InitialModal = ({ name }: { name: string }) => {
       });
     }
   };
-
-  const isLoading = form.formState.isLoading;
-
-  if (!isMounted) {
-    return null;
-  }
+  const handleClose = () => {
+    form.reset();
+    onClose();
+  };
 
   return (
-    <Dialog open>
+    <Dialog open={isModalOpen} onOpenChange={handleClose}>
       <DialogContent className="border-transparent bg-discord-gray2">
         <DialogHeader>
           <DialogTitle className="text-center text-2xl font-bold">
@@ -114,7 +120,7 @@ const InitialModal = ({ name }: { name: string }) => {
                   <FormLabel className="text-foreground">SERVER NAME</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder={`${name}'s server`}
+                      placeholder={randomServerNameRef.current.toUpperCase()}
                       {...field}
                       className="bg-discord-gray4"
                       disabled={isLoading}
@@ -139,4 +145,4 @@ const InitialModal = ({ name }: { name: string }) => {
   );
 };
 
-export default InitialModal;
+export default CreateServelModal;

@@ -4,6 +4,8 @@ import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { cn } from "@/lib/utils";
+import { Toaster } from "@/components/ui/toaster";
+import ModalProvider from "@/components/providers/modal-provider";
 
 const font = Open_Sans({ subsets: ["latin"] });
 
@@ -21,7 +23,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
         <body
-          className={cn(font.className, "dark:bg-discord-gray1 bg-foreground")}
+          className={cn(font.className, "bg-discord-gray3")}
         >
           <ThemeProvider
             attribute="class"
@@ -30,7 +32,9 @@ export default function RootLayout({
             storageKey="discord-clone"
           >
             {children}
+            <ModalProvider />
           </ThemeProvider>
+          <Toaster />
         </body>
       </html>
     </ClerkProvider>

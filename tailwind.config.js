@@ -51,10 +51,11 @@ module.exports = {
           foreground: "hsl(var(--card-foreground))",
         },
         discord: {
-          gray1: "#424549",
-          gray2: "#36393e",
-          gray3: "#282b30",
-          gray4: "#1e2124",
+          gray1: "var(--gray1)",
+          gray2: "var(--gray2)",
+          gray3: "var(--gray3)",
+          gray35: "var(--gray35)",
+          gray4: "var(--gray4)",
         }
       },
       borderRadius: {

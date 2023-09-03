@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -14,17 +13,19 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { useModal } from "@/hooks/use-modal-store";
 import { Label } from "../ui/label";
-import { CheckIcon, CopyIcon, RefreshCcwIcon } from "lucide-react";
+import { CheckIcon, CopyIcon, RefreshCwIcon } from "lucide-react";
 import { useOrigin } from "@/hooks/use-origin";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { cn } from "@/lib/utils";
+import axios from "axios";
 
 const InviteModal = () => {
   const router = useRouter();
-  const { isOpen, onClose, type, data } = useModal();
+  const { isOpen, onClose, type, data, onOpen } = useModal();
   const { server } = data;
   const origin = useOrigin();
   const [isCopied, setIsCopied] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const isModalOpen = isOpen && type === "invitation";
 
   const inviteUrl = `${origin}/invite/${server?.inviteCode}`;
@@ -42,6 +43,20 @@ const InviteModal = () => {
     }, 1000);
   };
 
+  const handleNewLink = async () => {
+    try {
+      setIsLoading(true);
+      const response = await axios.patch(
+        `/api/servers/${server?.id}/invite-code`,
+      );
+      onOpen("invitation", { server: response.data });
+    } catch (error) {
+      console.error("Failed to generate link", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
       <DialogContent className="border-transparent bg-discord-gray2">
@@ -56,11 +71,13 @@ const InviteModal = () => {
           </Label>
           <div className="flex items-center gap-x-2">
             <Input
+              disabled={isLoading}
               className="border-transparent bg-white/20 outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
               value={inviteUrl}
             />
             <Button
               onClick={handleCopy}
+              disabled={isLoading}
               variant="ghost"
               size="icon"
               className="relative bg-discord-gray1 hover:bg-discord-gray1"
@@ -79,9 +96,16 @@ const InviteModal = () => {
               />
             </Button>
           </div>
-          <Button variant="link" className="p-0 text-xs text-blue-500">
+          <Button
+            disabled={isLoading}
+            variant="link"
+            className="p-0 text-xs text-blue-500"
+            onClick={handleNewLink}
+          >
             Generate a new link
-            <RefreshCcwIcon className="ml-2 h-4 w-4" />
+            <RefreshCwIcon
+              className={cn("ml-2 h-4 w-4", isLoading && "animate-spin")}
+            />
           </Button>
         </div>
       </DialogContent>

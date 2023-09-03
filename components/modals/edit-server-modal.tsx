@@ -2,6 +2,13 @@
 
 import { useRouter } from "next/navigation";
 
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import axios from "axios";
+import { useEffect, useRef } from "react";
+
+// local imports
 import {
   Dialog,
   DialogContent,
@@ -9,12 +16,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import axios from "axios";
-
-// local imports
 import {
   Form,
   FormControl,
@@ -25,9 +26,9 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { useEffect, useState } from "react";
 import FileUpload from "../file-upload";
 import { useToast } from "../ui/use-toast";
+import { useModal } from "@/hooks/use-modal-store";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -38,12 +39,12 @@ const formSchema = z.object({
   }),
 });
 
-const InitialModal = ({ name }: { name: string }) => {
-  const [isMounted, setIsMounted] = useState(false);
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
+const EditServerModal = () => {
+  const router = useRouter();
+  const { toast } = useToast();
+  const { isOpen, onClose, type, data } = useModal();
+  const { server } = data;
+  const isModalOpen = isOpen && type === "editServer";
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -52,36 +53,39 @@ const InitialModal = ({ name }: { name: string }) => {
     },
   });
 
-  const router = useRouter();
+  useEffect(() => {
+    if (server) {
+      form.setValue("name", server.name);
+      form.setValue("imageUrl", server.imageUrl);
+    }
+    return () => form.reset();
+  }, [form, server]);
 
-  const { toast } = useToast();
+  const isLoading = form.formState.isLoading;
 
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.post("/api/servers", values);
+      await axios.patch(`/api/servers/${server?.id}`, values);
       form.reset();
-      window.location.reload();
+      onClose();
       router.refresh();
     } catch (error) {
       console.error(error);
       toast({
-        title: "Server creation failed.",
+        title: "Server update failed.",
       });
     }
   };
-
-  const isLoading = form.formState.isLoading;
-
-  if (!isMounted) {
-    return null;
-  }
+  const handleClose = () => {
+    onClose();
+  };
 
   return (
-    <Dialog open>
+    <Dialog open={isModalOpen} onOpenChange={handleClose}>
       <DialogContent className="border-transparent bg-discord-gray2">
         <DialogHeader>
           <DialogTitle className="text-center text-2xl font-bold">
-            Create your server
+            Customise your server
           </DialogTitle>
           <DialogDescription className="text-center brightness-75">
             Your server is where you and your friends hang out.
@@ -115,7 +119,7 @@ const InitialModal = ({ name }: { name: string }) => {
                   <FormLabel className="text-foreground">SERVER NAME</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder={`${name}'s server`}
+                      placeholder=""
                       {...field}
                       className="bg-discord-gray4"
                       disabled={isLoading}
@@ -131,7 +135,7 @@ const InitialModal = ({ name }: { name: string }) => {
               disabled={isLoading}
               className="w-full bg-indigo-600 text-white transition-colors hover:bg-indigo-500"
             >
-              Create Server
+              Update Server
             </Button>
           </form>
         </Form>
@@ -140,4 +144,4 @@ const InitialModal = ({ name }: { name: string }) => {
   );
 };
 
-export default InitialModal;
+export default EditServerModal;

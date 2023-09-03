@@ -2,12 +2,13 @@
 
 import { useEffect, useState } from "react";
 import CreateServelModal from "../modals/create-server-modal";
-import { useModal } from "@/hooks/use-modal-store";
 import InviteModal from "../modals/invite-modal";
+import EditServerModal from "../modals/edit-server-modal";
+import MembersModal from "../modals/members-modal";
 
 const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);
-  const { type } = useModal();
+
   useEffect(() => {
     setIsMounted(true);
   }, []);
@@ -15,14 +16,14 @@ const ModalProvider = () => {
     return null;
   }
 
-  switch (type) {
-    case "createServer":
-      return <CreateServelModal />;
-    case "invitation":
-      return <InviteModal />;
-    default:
-      return;
-  }
+  return (
+    <>
+      <CreateServelModal />;
+      <InviteModal />;
+      <EditServerModal />;
+      <MembersModal />
+    </>
+  );
 };
 
 export default ModalProvider;

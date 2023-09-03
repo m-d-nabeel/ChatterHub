@@ -15,10 +15,14 @@ export const currentProfile = async () => {
     if (profile) {
       return profile;
     }
+    let name = current_user.firstName as string;
+    if (!!current_user.lastName) {
+      name += " " + current_user.lastName;
+    }
     const newProfile = await prismadb.profile.create({
       data: {
         userId: current_user.id,
-        name: current_user.firstName + " " + current_user.lastName,
+        name,
         imageUrl: current_user.imageUrl,
         email: current_user.emailAddresses[0].emailAddress,
       },

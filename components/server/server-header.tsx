@@ -54,6 +54,7 @@ const ServerHeader = ({
           <DropdownMenuItem
             id="dropdown-menu-item"
             className="w-full cursor-pointer px-3 py-2 text-muted-foreground"
+            onClick={() => onOpen("editServer", { server })}
           >
             Server Settings
             <SettingsIcon className="ml-auto h-4 w-4" />{" "}
@@ -62,6 +63,7 @@ const ServerHeader = ({
 
         {isModerator && (
           <DropdownMenuItem
+            onClick={() => onOpen("members", { server })}
             id="dropdown-menu-item"
             className="w-full cursor-pointer px-3 py-2 text-muted-foreground"
           >

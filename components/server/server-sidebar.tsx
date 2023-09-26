@@ -74,7 +74,7 @@ const ServerSidebar = async ({ serverId, profileId }: ServerSidebarProps) => {
         {textChannels.length > 0 && (
           <AccordionItem value="item-1" className="border-transparent">
             <ChannelOptions
-              channelType="TEXT"
+              channelType={ChannelType.TEXT}
               channelLength={textChannels.length}
             />
             <ServerChannels channels={textChannels} type={ChannelType.TEXT} />
@@ -83,7 +83,7 @@ const ServerSidebar = async ({ serverId, profileId }: ServerSidebarProps) => {
         {audioChannels.length > 0 && (
           <AccordionItem value="item-2" className="border-transparent">
             <ChannelOptions
-              channelType="AUDIO"
+              channelType={ChannelType.AUDIO}
               channelLength={audioChannels.length}
             />
             <AccordionContent>
@@ -97,7 +97,7 @@ const ServerSidebar = async ({ serverId, profileId }: ServerSidebarProps) => {
         {videoChannels.length > 0 && (
           <AccordionItem value="item-3" className="border-transparent">
             <ChannelOptions
-              channelType="VIDEO"
+              channelType={ChannelType.VIDEO}
               channelLength={videoChannels.length}
             />
             <AccordionContent>

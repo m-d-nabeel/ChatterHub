@@ -5,11 +5,17 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "uploadthing.com",
-        port: '',
-        pathname: "**"
-      }
-    ]
-  }
-}
+        port: "",
+        pathname: "**",
+      },
+      {
+        protocol: "https",
+        hostname: "utfs.io",
+        port: "",
+        pathname: "**",
+      },
+    ],
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

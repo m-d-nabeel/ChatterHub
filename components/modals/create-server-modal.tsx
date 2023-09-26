@@ -54,12 +54,16 @@ const CreateServelModal = () => {
   });
   const isLoading = form.formState.isLoading;
   const randomServerNameRef = useRef("");
-  randomServerNameRef.current = generate({
-    exactly: 2,
-    minLength: 4,
-    maxLength: 10,
-    join: " ",
-  });
+  const generateRandomServerName = () => {
+    randomServerNameRef.current = generate({
+      exactly: 2,
+      minLength: 4,
+      maxLength: 10,
+      join: " ",
+    });
+  };
+
+  isOpen !== true && setTimeout(() => generateRandomServerName(), 1000);
 
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
     try {

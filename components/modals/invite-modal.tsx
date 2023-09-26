@@ -72,6 +72,7 @@ const InviteModal = () => {
           <div className="flex items-center gap-x-2">
             <Input
               disabled={isLoading}
+              readOnly
               className="border-transparent bg-white/20 outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
               value={inviteUrl}
             />

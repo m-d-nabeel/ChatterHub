@@ -16,9 +16,8 @@ import MemberCard from "../member-card";
 
 const MembersModal = () => {
   const { isOpen, onClose, type, data, onOpen } = useModal();
-  const { server } = data as {
-    server: ServerWithMembersWithProfiles | undefined;
-  };
+  const [loadingId, setLoadingId] = useState<string>("");
+  const { server } = data as { server: ServerWithMembersWithProfiles };
   const isModalOpen = isOpen && type === "members";
   if (!server) {
     return null;
@@ -44,7 +43,13 @@ const MembersModal = () => {
         <ScrollArea>
           {members.map((member) => (
             <div key={member.id} className="mt-8">
-              <MemberCard member={member} />
+              <MemberCard
+                member={member}
+                server={server}
+                loadingId={loadingId}
+                setLoadingId={setLoadingId}
+                onOpen={onOpen}
+              />
             </div>
           ))}
         </ScrollArea>

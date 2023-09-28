@@ -1,19 +1,32 @@
 "use client";
 
-import { HashIcon, Mic2Icon, VideoIcon } from "lucide-react";
+import {
+  Edit2Icon,
+  HashIcon,
+  LockIcon,
+  Mic2Icon,
+  Trash2Icon,
+  VideoIcon,
+} from "lucide-react";
 import { AccordionContent } from "../ui/accordion";
-import { Channel, ChannelType } from "@prisma/client";
+import { Channel, ChannelType, MemberRole } from "@prisma/client";
 import { useParams, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { useModal } from "@/hooks/use-modal-store";
+import ActionTooltip from "../action-tooltip";
+
 
 interface ServerChannelsProps {
   channels: Channel[];
   type: ChannelType;
+  role: MemberRole | undefined;
 }
 
-const ServerChannels = ({ channels, type }: ServerChannelsProps) => {
+const ServerChannels = ({ channels, type, role }: ServerChannelsProps) => {
   const router = useRouter();
   const params = useParams();
+  const { onOpen } = useModal();
+
   const handleClick = (channelId: string) => {
     router.push(`/servers/${params?.serverId}/channels/${channelId}`);
   };
@@ -21,14 +34,31 @@ const ServerChannels = ({ channels, type }: ServerChannelsProps) => {
   const IconMapping = () => {
     switch (type) {
       case ChannelType.AUDIO:
-        return <Mic2Icon className="mr-3 h-4 w-4 text-muted-foreground" />;
+        return (
+          <Mic2Icon className="mr-3 h-4 min-h-[16px] w-4 min-w-[16px] text-muted-foreground" />
+        );
       case ChannelType.VIDEO:
-        return <VideoIcon className="mr-3 h-4 w-4 text-muted-foreground" />;
+        return (
+          <VideoIcon className="mr-3 h-4 min-h-[16px] w-4 min-w-[16px] text-muted-foreground" />
+        );
       default:
-        return <HashIcon className="mr-3 h-5 w-5 text-muted-foreground" />;
+        return (
+          <HashIcon className="mr-3 h-5 min-h-[20px] w-5 min-w-[20px]  text-muted-foreground" />
+        );
     }
   };
 
+  const handleChannelEditDelete = (
+    e: React.MouseEvent,
+    action: "editChannel" | "deleteChannel",
+    channel: Channel,
+  ) => {
+    e.stopPropagation();
+    onOpen(action, {
+      serverId: params?.serverId as string | undefined,
+      channel,
+    });
+  };
   return (
     <AccordionContent>
       {channels.map((channel) => (
@@ -36,7 +66,7 @@ const ServerChannels = ({ channels, type }: ServerChannelsProps) => {
           onClick={() => handleClick(channel.id)}
           key={channel.id}
           className={cn(
-            "relative mb-1 ml-3 mr-2 flex w-[200px] cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-discord-gray2 focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+            "group relative mb-1 ml-3 mr-2 flex w-[200px] cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-discord-gray2 focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
             channel.id === params?.channelId && "bg-discord-gray2",
           )}
         >
@@ -46,7 +76,35 @@ const ServerChannels = ({ channels, type }: ServerChannelsProps) => {
               channel.id === params?.channelId && "hidden",
             )}
           />
-          <IconMapping /> {channel.name}
+          <ActionTooltip label={channel.name} align="start">
+            <div className="flex w-full items-center">
+              <IconMapping />{" "}
+              <span className="line-clamp-1">{channel.name}</span>
+              {channel.name === "general" && (
+                <LockIcon className="ml-auto h-4 w-4 text-muted-foreground" />
+              )}
+            </div>
+          </ActionTooltip>
+          {role !== "GUEST" && channel.name !== "general" && (
+            <div className="ml-auto flex items-center">
+              <ActionTooltip label="Edit" align="start">
+                <Edit2Icon
+                  onClick={(e) =>
+                    handleChannelEditDelete(e, "editChannel", channel)
+                  }
+                  className="hidden h-5 w-5 rounded p-1 text-muted-foreground ring-discord-gray1 hover:ring-[2px] group-hover:block"
+                />
+              </ActionTooltip>
+              <ActionTooltip label="Delete" align="start">
+                <Trash2Icon
+                  onClick={(e) =>
+                    handleChannelEditDelete(e, "deleteChannel", channel)
+                  }
+                  className="hidden h-5 w-5 rounded p-1 text-rose-500 ring-discord-gray1 hover:ring-[2px] group-hover:block"
+                />
+              </ActionTooltip>
+            </div>
+          )}
         </div>
       ))}
     </AccordionContent>

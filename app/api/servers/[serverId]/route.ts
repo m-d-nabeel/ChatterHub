@@ -12,6 +12,9 @@ export async function DELETE(
     if (!profile) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
+    if (!params.serverId) {
+      return new NextResponse("Server ID missing", { status: 400 });
+    }
     await prismadb.server.delete({
       where: {
         id: params.serverId,

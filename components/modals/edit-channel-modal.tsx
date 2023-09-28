@@ -1,13 +1,11 @@
 "use client";
 
-import { useParams, useRouter } from "next/navigation";
-
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import axios from "axios";
-import { generate } from "random-words";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import qs from "query-string";
 
 // local imports
@@ -50,49 +48,45 @@ const formSchema = z.object({
   type: z.nativeEnum(ChannelType),
 });
 
-const CreateChannelModal = () => {
-  const { isOpen, onClose, type } = useModal();
+const EditChannelModal = () => {
+  const { isOpen, onClose, type, data } = useModal();
   const router = useRouter();
-  const params = useParams();
-  const isModalOpen = isOpen && type === "createChannel";
+  const isModalOpen = isOpen && type === "editChannel";
+  const { channel, serverId } = data;
   const { toast } = useToast();
-  const randomServerNameRef = useRef("");
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
-      type: ChannelType.TEXT,
+      type: channel?.type || ChannelType.TEXT,
     },
   });
 
-  const isLoading = form.formState.isLoading;
-  const generateRandomServerName = () => {
-    randomServerNameRef.current = generate({
-      exactly: 2,
-      minLength: 4,
-      maxLength: 10,
-      join: " ",
-    });
-  };
+  useEffect(() => {
+    if (channel) {
+      form.setValue("type", channel.type);
+      form.setValue("name", channel.name);
+    }
+  }, [channel, form]);
 
-  !isOpen && setTimeout(() => generateRandomServerName(), 1000);
+  const isLoading = form.formState.isLoading;
 
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const url = qs.stringifyUrl({
-        url: "/api/channels/",
+        url: `/api/channels/${channel?.id}`,
         query: {
-          serverId: params?.serverId,
+          serverId,
         },
       });
-      await axios.post(url, values);
+      await axios.patch(url, values);
       form.reset();
       onClose();
       router.refresh();
     } catch (error) {
       console.error(error);
       toast({
-        title: "Channel creation failed.",
+        title: "Channel update failed.",
       });
     }
   };
@@ -106,7 +100,7 @@ const CreateChannelModal = () => {
       <DialogContent className="border-transparent bg-discord-gray2">
         <DialogHeader>
           <DialogTitle className="text-center text-2xl font-bold">
-            Create Channel
+            Edit Channel
           </DialogTitle>
         </DialogHeader>
         <Form {...form}>
@@ -124,7 +118,7 @@ const CreateChannelModal = () => {
                   </FormLabel>
                   <FormControl>
                     <Input
-                      placeholder={randomServerNameRef.current}
+                      placeholder=""
                       {...field}
                       className="bg-discord-gray4 placeholder:capitalize"
                       disabled={isLoading}
@@ -169,7 +163,7 @@ const CreateChannelModal = () => {
               disabled={isLoading}
               className="w-full bg-indigo-600 text-white transition-colors hover:bg-indigo-500"
             >
-              Create Channel
+              Edit Channel
             </Button>
           </form>
         </Form>
@@ -178,4 +172,4 @@ const CreateChannelModal = () => {
   );
 };
 
-export default CreateChannelModal;
+export default EditChannelModal;

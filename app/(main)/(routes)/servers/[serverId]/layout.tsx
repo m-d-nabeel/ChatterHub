@@ -40,7 +40,7 @@ const ServerIdLayout: FC<ServerIdLayoutProps> = async ({
       <div className="fixed inset-y-0 hidden h-full w-60 md:block">
         <ServerSidebar serverId={params.serverId} profileId={profile.id} />
       </div>
-      <main className="h-full md:pl-60">{children}</main>
+      <main className="h-full w-full md:pl-60">{children}</main>
     </div>
   );
 };

@@ -33,10 +33,16 @@ const ServerHeader = ({
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="focus:outline-none" asChild>
-        <button className="flex h-12 w-full items-center border-b-2 border-discord-gray4 px-3 py-2 text-lg font-semibold hover:bg-transparent">
-          <p className="w-full text-start">{server.name}</p>
-          <ChevronDownIcon className="ml-auto h-5 w-5" />
+      <DropdownMenuTrigger
+        className="bg-cover bg-center bg-no-repeat brightness-75 saturate-150 focus:outline-none"
+        style={{ backgroundImage: `url(${server.imageUrl})` }}
+        asChild
+      >
+        <button className="flex h-12 w-full items-center border-b-2 border-discord-gray4 px-3 py-3 text-lg font-semibold brightness-100 contrast-100 saturate-100 hover:bg-transparent">
+          <p className="w-full text-start mix-blend-difference">
+            {server.name}
+          </p>
+          <ChevronDownIcon className="ml-auto h-5 w-5 mix-blend-difference" />
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56 space-y-1 border-transparent bg-discord-gray4 contrast-[1.05]">
@@ -84,6 +90,7 @@ const ServerHeader = ({
         {isModerator && <DropdownMenuSeparator />}
         {isAdmin && (
           <DropdownMenuItem
+            onClick={() => onOpen("deleteServer", { server })}
             id="dropdown-menu-item"
             className="w-full cursor-pointer px-3 py-2 text-rose-500 "
           >
@@ -93,6 +100,7 @@ const ServerHeader = ({
         )}
         {!isAdmin && (
           <DropdownMenuItem
+            onClick={() => onOpen("leaveServer", { server })}
             id="dropdown-menu-item"
             className="w-full cursor-pointer px-3 py-2 text-rose-500 "
           >

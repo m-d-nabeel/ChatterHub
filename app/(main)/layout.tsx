@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 const MainLayout = ({ children }: { children: ReactNode }) => {
 
   return (
-    <div className="h-full">
+    <div className="h-screen overflow-hidden">
       <div className="fixed inset-y-0 hidden h-full w-20 md:block z-50">
         <NavigationSidebar />
       </div>

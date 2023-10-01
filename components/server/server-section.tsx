@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { Ref, RefObject, useEffect, useRef } from "react";
 import { AccordionTrigger } from "../ui/accordion";
 import { PlusIcon } from "lucide-react";
 import { ChannelType } from "@prisma/client";
@@ -17,12 +17,22 @@ const ChannelOptions = ({
 }: ChannelOptionsProps) => {
   const { onOpen } = useModal();
 
+  const triggerRef = useRef<HTMLButtonElement>(null);
+
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation();
     onOpen("createChannel", { channelType });
   };
+  useEffect(() => {
+    if (channelType === "TEXT") {
+      triggerRef.current?.click();
+    }
+  }, [channelType]);
   return (
-    <AccordionTrigger className="h-12 text-center text-xs font-semibold uppercase text-muted-foreground hover:no-underline">
+    <AccordionTrigger
+      ref={triggerRef}
+      className="h-12 text-center text-xs font-semibold uppercase text-muted-foreground hover:no-underline"
+    >
       {channelType} channels ({channelLength})
       <div
         className="ml-auto flex items-center bg-transparent px-1 transition-all hover:bg-transparent hover:text-foreground"

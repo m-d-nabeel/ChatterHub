@@ -13,7 +13,7 @@ export const getConversation = async (
       (await findConversation(memberTwoId, memberOneId));
     if (!conversation) {
       conversation = await createConversation(memberOneId, memberTwoId);
-    }
+    }    
     return conversation;
   } catch (error) {
     console.error(error);

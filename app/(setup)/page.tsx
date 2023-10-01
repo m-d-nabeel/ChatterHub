@@ -1,11 +1,11 @@
 import { redirect } from "next/navigation";
-import { currentProfile } from "@/lib/current-profile";
 import prismadb from "@/lib/db";
 import InitialModal from "@/components/modals/initial-modal";
 import { Profile } from "@prisma/client";
+import { initialProfile } from "@/lib/initial-profile";
 
 const SetupPage = async () => {
-  const profile: Profile = await currentProfile();
+  const profile: Profile = await initialProfile();
   const server = await prismadb.server.findFirst({
     where: {
       members: {

@@ -6,6 +6,8 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { cn } from "@/lib/utils";
 import { Toaster } from "@/components/ui/toaster";
 import ModalProvider from "@/components/providers/modal-provider";
+import { SocketProvider } from "@/components/providers/socket-provider";
+import { QueryProvider } from "@/components/providers/query-provider";
 
 const font = Open_Sans({ subsets: ["latin"] });
 
@@ -23,7 +25,10 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
         <body
-          className={cn(font.className, "bg-discord-gray3")}
+          className={cn(
+            font.className,
+            "fixed h-screen w-screen bg-discord-gray3",
+          )}
         >
           <ThemeProvider
             attribute="class"
@@ -31,8 +36,10 @@ export default function RootLayout({
             enableSystem
             storageKey="discord-clone"
           >
-            {children}
-            <ModalProvider />
+            <SocketProvider>
+              <QueryProvider>{children}</QueryProvider>
+              <ModalProvider />
+            </SocketProvider>
           </ThemeProvider>
           <Toaster />
         </body>

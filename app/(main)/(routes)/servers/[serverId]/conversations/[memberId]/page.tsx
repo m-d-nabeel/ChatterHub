@@ -1,9 +1,11 @@
 import ChatHeader from "@/components/chat/chat-header";
+import ChatInput from "@/components/chat/chat-input";
+import ChatMessages from "@/components/chat/chat-messages";
+import { MediaRoom } from "@/components/media-room";
 import { getConversation } from "@/lib/conversation";
 import { currentProfile } from "@/lib/current-profile";
 import prismadb from "@/lib/db";
 import { redirectToSignIn } from "@clerk/nextjs";
-import { Profile } from "@prisma/client";
 import { redirect } from "next/navigation";
 
 interface ConversationPageProps {
@@ -11,9 +13,15 @@ interface ConversationPageProps {
     serverId: string;
     memberId: string;
   };
+  searchParams: {
+    video?: boolean;
+  };
 }
-const ConversationPage = async ({ params }: ConversationPageProps) => {
-  const profile: Profile = await currentProfile();
+const ConversationPage = async ({
+  params,
+  searchParams,
+}: ConversationPageProps) => {
+  const profile = await currentProfile();
   if (!profile) {
     return redirectToSignIn();
   }
@@ -39,13 +47,40 @@ const ConversationPage = async ({ params }: ConversationPageProps) => {
   const otherMember =
     profile.id === memberOne.profileId ? memberTwo : memberOne;
   return (
-    <div>
+    <div className="flex h-full w-full flex-col">
       <ChatHeader
         name={otherMember.profile.name}
         serverId={params.serverId}
         type="conversation"
         imageUrl={otherMember.profile.imageUrl}
       />
+      {!searchParams.video ? (
+        <>
+          <ChatMessages
+            name={otherMember.profile.name}
+            type="conversation"
+            member={currentMember}
+            chatId={conversation.id}
+            paramKey="conversationId"
+            paramValue={conversation.id}
+            apiUrl="/api/direct-messages"
+            socketUrl="/api/socket/direct-messages"
+            socketQuery={{
+              conversationId: conversation.id,
+            }}
+          />
+          <ChatInput
+            apiUrl="/api/socket/direct-messages"
+            type="conversation"
+            name={otherMember.profile.name}
+            query={{
+              conversationId: conversation.id,
+            }}
+          />
+        </>
+      ) : (
+        <MediaRoom chatId={conversation.id} audio={false} video={false} />
+      )}
     </div>
   );
 };

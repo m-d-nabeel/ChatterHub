@@ -45,7 +45,8 @@ const MembersModal = () => {
             <div key={member.id} className="mt-8">
               <MemberCard
                 member={member}
-                server={server}
+                serverId={server.id}
+                profileId={server.profileId}
                 loadingId={loadingId}
                 setLoadingId={setLoadingId}
                 onOpen={onOpen}

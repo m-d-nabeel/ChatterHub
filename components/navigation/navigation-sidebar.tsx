@@ -7,7 +7,7 @@ import { currentProfile } from "@/lib/current-profile";
 import prismadb from "@/lib/db";
 import NavigationAction from "./navigation-action";
 import { Separator } from "../ui/separator";
-import { ScrollArea } from "../ui/scroll-area";
+import { ScrollArea, ScrollBar } from "../ui/scroll-area";
 import MessageAction from "./message-action";
 import NavigationItem from "./navigation-item";
 
@@ -27,10 +27,10 @@ const NavigationSidebar = async () => {
     },
   });
   return (
-    <div className="bg-discord-gray4 flex h-full flex-col justify-between py-3">
+    <div className="flex h-full flex-col justify-between bg-discord-gray4 py-3">
       <div className="flex flex-col items-center justify-center gap-y-4">
         <MessageAction />
-        <Separator className="bg-discord-gray1 mx-auto h-[2px] w-10 rounded-md" />
+        <Separator className="mx-auto h-[2px] w-10 rounded-md bg-discord-gray1" />
 
         <ScrollArea className="max-h-96 w-[72px] rounded-md">
           <div className="flex flex-col items-center justify-center gap-y-4">
@@ -45,7 +45,7 @@ const NavigationSidebar = async () => {
             ))}
           </div>
         </ScrollArea>
-        <Separator className="bg-discord-gray1 mx-auto h-[2px] w-10 rounded-md" />
+        <Separator className="mx-auto h-[2px] w-10 rounded-md bg-discord-gray1" />
         <NavigationAction />
       </div>
       <div className="flex flex-col items-center justify-center gap-y-4 pb-3">

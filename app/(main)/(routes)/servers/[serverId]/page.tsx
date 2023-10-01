@@ -11,7 +11,7 @@ interface ServerIdPageProps {
 }
 
 const ServerIdPage = async ({ params }: ServerIdPageProps) => {
-  const profile: Profile = await currentProfile();
+  const profile = await currentProfile();
   if (!profile) {
     return redirectToSignIn();
   }

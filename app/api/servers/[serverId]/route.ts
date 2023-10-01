@@ -8,7 +8,7 @@ export async function DELETE(
   { params }: { params: { serverId: string } },
 ) {
   try {
-    const profile: Profile = await currentProfile();
+    const profile = await currentProfile();
     if (!profile) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
@@ -37,7 +37,7 @@ export async function PATCH(
     if (!name || !imageUrl) {
       return new NextResponse("Name or Image is missing.", { status: 400 });
     }
-    const profile: Profile = await currentProfile();
+    const profile = await currentProfile();
     if (!profile) {
       return new NextResponse("Unauthorized", { status: 401 });
     }

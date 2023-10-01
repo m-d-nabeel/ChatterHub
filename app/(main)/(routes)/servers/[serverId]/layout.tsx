@@ -15,7 +15,7 @@ const ServerIdLayout: FC<ServerIdLayoutProps> = async ({
   children,
   params,
 }) => {
-  const profile: Profile = await currentProfile();
+  const profile = await currentProfile();
   if (!profile) {
     return redirectToSignIn();
   }

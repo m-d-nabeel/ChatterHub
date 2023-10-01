@@ -9,7 +9,7 @@ export async function PATCH(
   { params }: { params: { serverId: string } },
 ) {
   try {
-    const profile: Profile = await currentProfile();
+    const profile = await currentProfile();
     if (!profile) {
       return new NextResponse("Unauthorized", { status: 401 });
     }

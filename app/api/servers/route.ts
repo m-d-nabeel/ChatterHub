@@ -7,7 +7,7 @@ import { randomUUID } from "crypto";
 export async function POST(req: Request) {
   try {
     const { name, imageUrl } = await req.json();
-    const profile: Profile = await currentProfile();
+    const profile = await currentProfile();
     if (!name || !imageUrl) {
       return new NextResponse("Name or Image is missing.", { status: 400 });
     }

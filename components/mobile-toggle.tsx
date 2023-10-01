@@ -2,15 +2,18 @@ import { MenuIcon } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import NavigationSidebar from "./navigation/navigation-sidebar";
 import ServerSidebar from "./server/server-sidebar";
-import { Profile } from "@prisma/client";
 import { currentProfile } from "@/lib/current-profile";
+import { redirectToSignIn } from "@clerk/nextjs";
 
 const MobileToggle = async ({ serverId }: { serverId: string }) => {
-  const profile: Profile = await currentProfile();
+  const profile = await currentProfile();
+  if (!profile) {
+    return redirectToSignIn();
+  }
   return (
     <Sheet>
       <SheetTrigger>
-        <div className="cursor-pointer bg-transparent md:hidden mr-2">
+        <div className="mr-2 cursor-pointer bg-transparent md:hidden">
           <MenuIcon />
         </div>
       </SheetTrigger>

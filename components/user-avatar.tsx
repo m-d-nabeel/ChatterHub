@@ -8,7 +8,7 @@ const UserAvatar = ({
   className,
 }: {
   imageUrl: string;
-  className: string;
+  className?: string;
 }) => {
   return (
     <Avatar className={className}>

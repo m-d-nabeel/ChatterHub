@@ -9,7 +9,7 @@ export async function PATCH(
 ) {
   try {
     const { name, type } = await req.json();
-    const profile: Profile = await currentProfile();
+    const profile = await currentProfile();
     const { searchParams } = new URL(req.url);
     const serverId = searchParams.get("serverId");
 
@@ -75,7 +75,7 @@ export async function DELETE(
   { params }: { params: { channelId: string } },
 ) {
   try {
-    const profile: Profile = await currentProfile();
+    const profile = await currentProfile();
     const { searchParams } = new URL(req.url);
     const serverId = searchParams.get("serverId");
 

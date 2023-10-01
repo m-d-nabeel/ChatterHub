@@ -8,7 +8,7 @@ export async function PATCH(
   { params }: { params: { memberId: string } },
 ) {
   try {
-    const profile: Profile = await currentProfile();
+    const profile = await currentProfile();
     if (!profile) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
@@ -67,7 +67,7 @@ export async function DELETE(
   { params }: { params: { memberId: string } },
 ) {
   try {
-    const profile: Profile = await currentProfile();
+    const profile = await currentProfile();
     if (!profile) {
       return new NextResponse("Unauthorized", { status: 401 });
     }

@@ -1,9 +1,7 @@
 "use client";
-
 import * as React from "react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { type ThemeProviderProps } from "next-themes/dist/types";
-import LoadingCircle from "../loading-circle";
 
 export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
   const [isMounted, setIsMounted] = React.useState<boolean>(false);
@@ -11,7 +9,7 @@ export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
     setIsMounted(true);
   }, []);
   if (!isMounted) {
-    return <LoadingCircle />;
+    return null;
   }
   return <NextThemesProvider {...props}>{children}</NextThemesProvider>;
 }

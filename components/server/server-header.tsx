@@ -38,7 +38,7 @@ const ServerHeader = ({
         style={{ backgroundImage: `url(${server.imageUrl})` }}
         asChild
       >
-        <button className="flex h-12 w-full items-center border-b-2 border-discord-gray4 px-3 py-3 text-lg font-semibold brightness-100 contrast-100 saturate-100 hover:bg-transparent">
+        <button className="flex h-12 w-full items-center border-b-2 border-discord-gray3 px-3 py-3 text-lg font-semibold brightness-100 contrast-100 saturate-100 hover:bg-transparent">
           <p className="w-full text-start mix-blend-difference">
             {server.name}
           </p>
@@ -48,8 +48,7 @@ const ServerHeader = ({
       <DropdownMenuContent className="w-56 space-y-1 border-transparent bg-discord-gray4 contrast-[1.05]">
         {isModerator && (
           <DropdownMenuItem
-            id="dropdown-menu-item"
-            className="w-full cursor-pointer px-3 py-2 text-indigo-500"
+            className="w-full cursor-pointer px-3 py-2 text-indigo-500 aria-selected:bg-discord-gray1"
             onClick={() => onOpen("invitation", { server })}
           >
             Invite People
@@ -58,8 +57,7 @@ const ServerHeader = ({
         )}
         {isAdmin && (
           <DropdownMenuItem
-            id="dropdown-menu-item"
-            className="w-full cursor-pointer px-3 py-2 text-muted-foreground"
+            className="w-full cursor-pointer px-3 py-2 text-muted-foreground aria-selected:bg-discord-gray1"
             onClick={() => onOpen("editServer", { server })}
           >
             Server Settings
@@ -70,8 +68,7 @@ const ServerHeader = ({
         {isModerator && (
           <DropdownMenuItem
             onClick={() => onOpen("members", { server })}
-            id="dropdown-menu-item"
-            className="w-full cursor-pointer px-3 py-2 text-muted-foreground"
+            className="w-full cursor-pointer px-3 py-2 text-muted-foreground aria-selected:bg-discord-gray1"
           >
             Manage Members
             <UsersIcon className="ml-auto h-4 w-4" />
@@ -80,8 +77,7 @@ const ServerHeader = ({
         {isModerator && (
           <DropdownMenuItem
             onClick={() => onOpen("createChannel")}
-            id="dropdown-menu-item"
-            className="w-full cursor-pointer px-3 py-2 text-muted-foreground"
+            className="w-full cursor-pointer px-3 py-2 text-muted-foreground aria-selected:bg-discord-gray1"
           >
             Create Channel
             <PlusCircleIcon className="ml-auto h-4 w-4" />
@@ -91,8 +87,7 @@ const ServerHeader = ({
         {isAdmin && (
           <DropdownMenuItem
             onClick={() => onOpen("deleteServer", { server })}
-            id="dropdown-menu-item"
-            className="w-full cursor-pointer px-3 py-2 text-rose-500 "
+            className="w-full cursor-pointer px-3 py-2 text-rose-500 aria-selected:bg-discord-gray1"
           >
             Delete Server
             <TrashIcon className="ml-auto h-4 w-4" />
@@ -101,8 +96,7 @@ const ServerHeader = ({
         {!isAdmin && (
           <DropdownMenuItem
             onClick={() => onOpen("leaveServer", { server })}
-            id="dropdown-menu-item"
-            className="w-full cursor-pointer px-3 py-2 text-rose-500 "
+            className="w-full cursor-pointer px-3 py-2 text-rose-500 aria-selected:bg-discord-gray1 "
           >
             Leave Server
             <LogOutIcon className="ml-auto h-4 w-4" />

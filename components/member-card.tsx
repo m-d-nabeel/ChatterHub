@@ -27,15 +27,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import UserAvatar from "./user-avatar";
-import { ServerWithMembersWithProfiles } from "@/types";
 import { ModalData, ModalType } from "@/hooks/use-modal-store";
-import { useOrigin } from "@/hooks/use-origin";
 
 interface MemberCardProps {
   member: Member & {
     profile: Profile;
   };
-  server: ServerWithMembersWithProfiles;
+  serverId: string;
+  profileId: string;
   loadingId: string;
   setLoadingId: React.Dispatch<React.SetStateAction<string>>;
   onOpen: (type: ModalType, data?: ModalData) => void;
@@ -49,7 +48,8 @@ const roleIconMap = {
 
 const MemberCard = ({
   member,
-  server,
+  serverId,
+  profileId,
   loadingId,
   setLoadingId,
   onOpen,
@@ -61,8 +61,7 @@ const MemberCard = ({
       const url = qs.stringifyUrl({
         url: `/api/members/${memberId}`,
         query: {
-          serverId: server.id,
-          memberId,
+          serverId,
         },
       });
       const { data } = await axios.patch(url, { role });
@@ -80,7 +79,7 @@ const MemberCard = ({
       const url = qs.stringifyUrl({
         url: `/api/members/${memberId}`,
         query: {
-          serverId: server.id,
+          serverId,
         },
       });
       const { data } = await axios.delete(url);
@@ -103,7 +102,7 @@ const MemberCard = ({
         </div>
         <p className="text-muted-foreground">{member.profile.email}</p>
       </div>
-      {server.profileId !== member.profileId && loadingId !== member.id && (
+      {profileId !== member.profileId && loadingId !== member.id && (
         <div className="ml-auto">
           <DropdownMenu>
             <DropdownMenuTrigger className="focus:outline-none" asChild>
@@ -114,8 +113,8 @@ const MemberCard = ({
               className="space-y-1 border-transparent bg-discord-gray4 contrast-[1.05]"
             >
               <DropdownMenuSub>
-                <DropdownMenuSubTrigger id="dropdown-menu-item">
-                  <ShieldQuestionIcon className="mr-2 h-4 w-4" />
+                <DropdownMenuSubTrigger className="aria-selected:bg-discord-gray1">
+                  <ShieldQuestionIcon className="mr-2 h-4 w-4 aria-selected:bg-discord-gray1" />
                   Role
                 </DropdownMenuSubTrigger>
                 <DropdownMenuPortal>
@@ -125,7 +124,7 @@ const MemberCard = ({
                     alignOffset={-30}
                   >
                     <DropdownMenuItem
-                      id="dropdown-menu-item"
+                      className="cursor-pointer"
                       onClick={() =>
                         handleRoleChange(member.id, MemberRole.GUEST)
                       }
@@ -137,6 +136,7 @@ const MemberCard = ({
                       )}
                     </DropdownMenuItem>
                     <DropdownMenuItem
+                      className="cursor-pointer"
                       onClick={() =>
                         handleRoleChange(member.id, MemberRole.MODERATOR)
                       }
@@ -152,7 +152,7 @@ const MemberCard = ({
               </DropdownMenuSub>
               <DropdownMenuSeparator />
               <DropdownMenuItem
-                className="text-rose-600"
+                className="cursor-pointer text-rose-600"
                 onClick={() => handleKick(member.id)}
               >
                 <GavelIcon className="mr-2 h-4 w-4" />

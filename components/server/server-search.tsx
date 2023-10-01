@@ -77,9 +77,8 @@ const ServerSearch = ({ data }: ServerSearchProps) => {
                 <CommandItem
                   key={item.id}
                   onSelect={() => handleItemClick(type, item.id)}
-                  id="dropdown-menu-item"
                   className={cn(
-                    "flex w-full justify-start",
+                    "flex w-full justify-start aria-selected:bg-discord-gray1",
                     type === "member" && "flex-row-reverse justify-end gap-x-2",
                   )}
                 >

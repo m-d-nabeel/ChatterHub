@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 export async function POST(req: Request) {
   try {
     const { name, type } = await req.json();
-    const profile: Profile = await currentProfile();
+    const profile = await currentProfile();
     const { searchParams } = new URL(req.url);
     const serverId = searchParams.get("serverId");
 

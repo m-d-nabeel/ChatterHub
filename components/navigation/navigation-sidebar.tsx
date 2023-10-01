@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 import { UserButton } from "@clerk/nextjs";
 
 // local imports
-import { ModeToggle } from "../mode-toggle";
+// import { ModeToggle } from "../mode-toggle";
 import { currentProfile } from "@/lib/current-profile";
 import prismadb from "@/lib/db";
 import NavigationAction from "./navigation-action";
@@ -49,7 +49,7 @@ const NavigationSidebar = async () => {
         <NavigationAction />
       </div>
       <div className="flex flex-col items-center justify-center gap-y-4 pb-3">
-        <ModeToggle />
+        {/* <ModeToggle /> */}
         <UserButton
           afterSignOutUrl="/"
           appearance={{

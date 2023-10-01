@@ -34,9 +34,12 @@ const ServerIdPage = async ({ params }: ServerIdPageProps) => {
     },
   });
 
-  const initialChannel = server?.channels[0];
+  if (!server) {
+    return redirect("/");
+  }
 
-  return redirect(`/servers/${params.serverId}/channels/${initialChannel?.id}`);
+  const initialChannel = server.channels[0];
+  return redirect(`/servers/${params.serverId}/channels/${initialChannel.id}`);
 };
 
 export default ServerIdPage;

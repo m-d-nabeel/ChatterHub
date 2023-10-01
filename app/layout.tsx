@@ -25,10 +25,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
         <body
-          className={cn(
-            font.className,
-            "fixed h-screen w-screen bg-discord-gray3",
-          )}
+          className={cn(font.className, "fixed h-full w-full bg-discord-gray3")}
         >
           <ThemeProvider
             attribute="class"

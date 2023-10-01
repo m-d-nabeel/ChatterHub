@@ -1,3 +1,5 @@
+"use client";
+
 import { HashIcon } from "lucide-react";
 import UserAvatar from "../user-avatar";
 
@@ -18,7 +20,7 @@ const ChatWelcome = ({ type, name, imageUrl, hashTag }: ChatWelcomeProps) => {
       {type === "conversation" && (
         <UserAvatar imageUrl={imageUrl!} className="h-20 w-20" />
       )}
-      <h1 className="flex items-center whitespace-nowrap text-3xl font-bold">
+      <h1 className="flex items-center text-3xl font-bold">
         {type === "channel" ? `Welcome to #${name}!` : `${name}`}
       </h1>
       {type === "conversation" && (

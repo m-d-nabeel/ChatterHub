@@ -4,7 +4,7 @@ import { ChannelMessage, Member, Profile } from "@prisma/client";
 import { format } from "date-fns";
 import ChatWelcome from "./chat-welcome";
 import { useChatQuery } from "@/hooks/use-chat-query";
-import { Loader2Icon, ServerCrashIcon } from "lucide-react";
+import { ServerCrashIcon } from "lucide-react";
 import ChatSkeleton from "../chat-skeleton";
 import { Fragment, useRef, ElementRef } from "react";
 import { Separator } from "../ui/separator";
@@ -91,7 +91,7 @@ const ChatMessages = ({
             <ChatSkeleton className="max-h-60" />
           ) : (
             <button
-              className="text-xs font-semibold text-muted-foreground transition hover:text-foreground/80"
+              className="flex w-full items-center justify-center text-xs font-semibold text-muted-foreground transition hover:text-foreground/80"
               onClick={() => fetchNextPage()}
             >
               Load previous messages

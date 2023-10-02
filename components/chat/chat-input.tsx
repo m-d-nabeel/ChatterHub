@@ -12,6 +12,7 @@ import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { useRouter } from "next/navigation";
 import { useModal } from "@/hooks/use-modal-store";
 import EmojiPicker from "../emoji-picker";
+import { useEffect, useRef } from "react";
 
 interface ChatInputProps {
   apiUrl: string;
@@ -36,6 +37,7 @@ const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
 
   const router = useRouter();
   const { onOpen } = useModal();
+  const chatInputRef = useRef<HTMLInputElement>(null);
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
@@ -51,7 +53,9 @@ const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
       console.error("[MESSAGE_SEND_ERROR]", error);
     }
   };
-
+  useEffect(() => {
+    chatInputRef.current?.focus();
+  });
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="mt-auto w-full">
@@ -64,6 +68,7 @@ const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
                 <div className="relative flex w-full items-center p-4 pb-6">
                   <Input
                     {...field}
+                    ref={chatInputRef}
                     className="rounded-lg border-transparent bg-discord-gray2 px-14 py-6 ring-offset-transparent focus-visible:ring-transparent"
                     placeholder={`Message ${
                       type === "channel" ? "#" + name : name

@@ -1,11 +1,5 @@
 import prismadb from "@/lib/db";
-import {
-  Channel,
-  ChannelType,
-  Member,
-  MemberRole,
-  Profile,
-} from "@prisma/client";
+import { Channel, ChannelType, MemberRole } from "@prisma/client";
 
 // local imports
 import ServerHeader from "./server-header";
@@ -26,7 +20,6 @@ import {
   ShieldCheckIcon,
   VideoIcon,
 } from "lucide-react";
-import UserAvatar from "../user-avatar";
 import ServerMemberCard from "./server-member-card";
 
 interface ServerSidebarProps {
@@ -199,7 +192,10 @@ const ServerSidebar = async ({ serverId, profileId }: ServerSidebarProps) => {
             <div className="ml-auto flex items-center bg-transparent px-1 transition-all hover:bg-transparent hover:text-foreground"></div>
           </AccordionTrigger>
           <AccordionContent>
-            <ServerMemberCard members={server.members} />
+            <ServerMemberCard
+              members={server.members}
+              currentMemberProfileId={profileId}
+            />
           </AccordionContent>
         </AccordionItem>
       </Accordion>

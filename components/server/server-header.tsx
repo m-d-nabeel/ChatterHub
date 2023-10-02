@@ -38,7 +38,7 @@ const ServerHeader = ({
         style={{ backgroundImage: `url(${server.imageUrl})` }}
         asChild
       >
-        <button className="flex h-12 w-full items-center border-b-2 border-discord-gray3 px-3 py-3 text-lg font-semibold brightness-100 contrast-100 saturate-100 hover:bg-transparent">
+        <button className="z-50 flex h-12 w-full items-center px-3 py-3 text-lg font-semibold shadow-md brightness-100 contrast-100 saturate-100 hover:bg-transparent">
           <p className="w-full text-start mix-blend-difference">
             {server.name}
           </p>

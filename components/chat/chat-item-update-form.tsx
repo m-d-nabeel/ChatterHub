@@ -70,12 +70,12 @@ const ChatItemUpdateForm = ({
           control={form.control}
           name="content"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="group">
               <FormControl>
                 <div className="relative my-2 flex w-full items-center">
                   <Input
                     {...field}
-                    className="rounded-lg border-none bg-discord-gray35 px-6 py-6 pr-14 ring-offset-transparent focus-visible:ring-transparent"
+                    className="rounded-lg border-none bg-discord-gray2 group-hover:contrast-75 px-6 py-6 pr-14 ring-offset-transparent focus-visible:ring-transparent"
                     placeholder=""
                     disabled={isLoading}
                   />

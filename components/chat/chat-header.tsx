@@ -13,7 +13,7 @@ interface ChatHeaderProps {
 
 const ChatHeader = ({ name, serverId, type, imageUrl }: ChatHeaderProps) => {
   return (
-    <div className="flex h-12 w-full items-center border-b-2 border-discord-gray4 px-3 font-semibold text-foreground hover:bg-transparent">
+    <div className="z-50 flex h-12 w-full items-center px-3 font-semibold text-foreground shadow-md hover:bg-transparent">
       <MobileToggle serverId={serverId} />
       {type === "channel" && (
         <HashIcon className="mr-2 h-5 w-5 text-muted-foreground" />

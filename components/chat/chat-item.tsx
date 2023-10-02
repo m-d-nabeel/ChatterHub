@@ -45,9 +45,9 @@ const ChatItem = ({
   const params = useParams();
   const { onOpen } = useModal();
   const fileType = fileUrl?.split(".").pop()?.toLowerCase();
-  const isAdmin = member.role === MemberRole.ADMIN;
-  const isModerator = member.role === MemberRole.MODERATOR;
-  const isOwner = member.id === currentMember.id;
+  const isAdmin = currentMember.role === MemberRole.ADMIN;
+  const isModerator = currentMember.role === MemberRole.MODERATOR;
+  const isOwner = currentMember.id === member.id;
   const canDeleteMessage = !deleted && (isAdmin || isModerator || isOwner);
   const canEditMessage = !deleted && isOwner && !fileUrl;
   const isImage =

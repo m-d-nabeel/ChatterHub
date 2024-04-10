@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { FC } from "react";
 import Image from "next/image";
@@ -15,12 +15,7 @@ interface FileUploadProps {
   className?: string;
 }
 
-const FileUpload: FC<FileUploadProps> = ({
-  value,
-  onChange,
-  endPoint,
-  className,
-}) => {
+const FileUpload: FC<FileUploadProps> = ({ value, onChange, endPoint, className }) => {
   const fileType = value.split(".").pop();
   if (value && fileType !== "pdf" && fileType !== "txt") {
     return (
@@ -33,12 +28,7 @@ const FileUpload: FC<FileUploadProps> = ({
         >
           <XIcon className="h-4 w-4" />
         </Button>
-        <Image
-          src={value}
-          alt="upload"
-          fill
-          className="rounded-full object-cover object-top"
-        />
+        <Image src={value} alt="upload" fill className="rounded-full object-cover object-top" />
       </div>
     );
   }

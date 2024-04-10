@@ -17,14 +17,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "../ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import FileUpload from "../file-upload";
@@ -87,9 +80,7 @@ const CreateServelModal = () => {
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
       <DialogContent className="border-transparent bg-discord-gray2">
         <DialogHeader>
-          <DialogTitle className="text-center text-2xl font-bold">
-            Create your server
-          </DialogTitle>
+          <DialogTitle className="text-center text-2xl font-bold">Create your server</DialogTitle>
           <DialogDescription className="text-center brightness-75">
             Your server is where you and your friends hang out.
             <br />

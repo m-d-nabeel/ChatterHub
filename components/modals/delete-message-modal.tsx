@@ -54,9 +54,7 @@ const DeleteMessageModal = () => {
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
       <DialogContent className="select-none border-transparent bg-discord-gray2 p-0">
         <DialogHeader className="px-6 pt-4">
-          <DialogTitle className="text-start text-2xl font-bold">
-            Delete Message
-          </DialogTitle>
+          <DialogTitle className="text-start text-2xl font-bold">Delete Message</DialogTitle>
           <DialogDescription className="text-sm text-foreground">
             Are you sure you want to delete this message?
           </DialogDescription>

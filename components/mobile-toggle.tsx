@@ -17,10 +17,7 @@ const MobileToggle = async ({ serverId }: { serverId: string }) => {
           <MenuIcon />
         </div>
       </SheetTrigger>
-      <SheetContent
-        side="left"
-        className="m-0 flex w-80 gap-0 border-transparent p-0"
-      >
+      <SheetContent side="left" className="m-0 flex w-80 gap-0 border-transparent p-0">
         <NavigationSidebar />
         <ServerSidebar serverId={serverId} profileId={profile.id} />
       </SheetContent>

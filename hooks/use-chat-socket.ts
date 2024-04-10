@@ -15,11 +15,7 @@ type MessageWithMemberWithProfile = ChannelMessage & {
   };
 };
 
-export const useChatSocket = ({
-  addKey,
-  updateKey,
-  queryKey,
-}: ChatSocketProps) => {
+export const useChatSocket = ({ addKey, updateKey, queryKey }: ChatSocketProps) => {
   const { socket } = useSocket();
   const queryClient = useQueryClient();
 

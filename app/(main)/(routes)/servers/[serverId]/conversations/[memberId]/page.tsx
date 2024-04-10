@@ -17,10 +17,7 @@ interface ConversationPageProps {
     video?: boolean;
   };
 }
-const ConversationPage = async ({
-  params,
-  searchParams,
-}: ConversationPageProps) => {
+const ConversationPage = async ({ params, searchParams }: ConversationPageProps) => {
   const profile = await currentProfile();
   if (!profile) {
     return redirectToSignIn();
@@ -44,8 +41,7 @@ const ConversationPage = async ({
     return redirect(`/servers/${params.serverId}`);
   }
   const { memberOne, memberTwo } = conversation;
-  const otherMember =
-    profile.id === memberOne.profileId ? memberTwo : memberOne;
+  const otherMember = profile.id === memberOne.profileId ? memberTwo : memberOne;
   return (
     <div className="flex h-full w-full flex-col">
       <ChatHeader

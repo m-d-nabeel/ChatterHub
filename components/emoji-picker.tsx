@@ -5,11 +5,7 @@ import Picker from "@emoji-mart/react";
 import { forwardRef, useState } from "react";
 import { useTheme } from "next-themes";
 
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { DefaultEmojis } from "@/constants";
 
 interface EmojiPickerProps {

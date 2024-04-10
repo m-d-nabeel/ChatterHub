@@ -3,10 +3,7 @@ import prismadb from "@/lib/db";
 import { Profile } from "@prisma/client";
 import { NextResponse } from "next/server";
 
-export async function PATCH(
-  req: Request,
-  { params }: { params: { memberId: string } },
-) {
+export async function PATCH(req: Request, { params }: { params: { memberId: string } }) {
   try {
     const profile = await currentProfile();
     if (!profile) {
@@ -62,10 +59,7 @@ export async function PATCH(
   }
 }
 
-export async function DELETE(
-  req: Request,
-  { params }: { params: { memberId: string } },
-) {
+export async function DELETE(req: Request, { params }: { params: { memberId: string } }) {
   try {
     const profile = await currentProfile();
     if (!profile) {

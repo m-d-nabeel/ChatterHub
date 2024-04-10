@@ -1,7 +1,6 @@
 import { currentProfile } from "@/lib/current-profile";
 import prismadb from "@/lib/db";
 import { redirectToSignIn } from "@clerk/nextjs";
-import { Profile } from "@prisma/client";
 import { redirect } from "next/navigation";
 
 interface ServerIdPageProps {

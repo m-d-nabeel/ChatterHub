@@ -62,8 +62,8 @@ const DeleteServerModal = () => {
           </DialogTitle>
           <DialogDescription className="rounded-md bg-yellow-500 p-2 text-sm text-foreground shadow">
             Are you sure you want to delete{" "}
-            <span className="font-semibold brightness-150">{server?.name}</span>{" "}
-            ? This action cannot be undone
+            <span className="font-semibold brightness-150">{server?.name}</span> ? This action
+            cannot be undone
           </DialogDescription>
         </DialogHeader>
         <div className="px-6">

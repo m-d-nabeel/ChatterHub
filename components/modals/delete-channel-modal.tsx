@@ -56,13 +56,10 @@ const DeleteChannelModal = () => {
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
       <DialogContent className="select-none border-transparent bg-discord-gray2 p-0">
         <DialogHeader className="px-6 py-4">
-          <DialogTitle className="text-start text-2xl font-bold">
-            Delete Channel
-          </DialogTitle>
+          <DialogTitle className="text-start text-2xl font-bold">Delete Channel</DialogTitle>
           <DialogDescription className="text-sm font-semibold text-muted-foreground">
-            Are you sure you want to delete{" "}
-            <span className="brightness-150">{channel?.name}</span> ? This
-            cannot be undone.
+            Are you sure you want to delete <span className="brightness-150">{channel?.name}</span>{" "}
+            ? This cannot be undone.
           </DialogDescription>
         </DialogHeader>
         <div className="flex w-full justify-end gap-x-3 bg-discord-gray3 px-3 py-3">

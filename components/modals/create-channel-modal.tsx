@@ -11,31 +11,13 @@ import { useEffect, useRef } from "react";
 import qs from "query-string";
 
 // local imports
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "../ui/form";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { useToast } from "../ui/use-toast";
 import { useModal } from "@/hooks/use-modal-store";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { ChannelType } from "@prisma/client";
 
 const formSchema = z.object({
@@ -105,9 +87,7 @@ const CreateChannelModal = () => {
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
       <DialogContent className="border-transparent bg-discord-gray2">
         <DialogHeader>
-          <DialogTitle className="text-center text-2xl font-bold">
-            Create Channel
-          </DialogTitle>
+          <DialogTitle className="text-center text-2xl font-bold">Create Channel</DialogTitle>
         </DialogHeader>
         <Form {...form}>
           <form
@@ -142,10 +122,7 @@ const CreateChannelModal = () => {
                   <FormLabel className="text-sm font-semibold text-foreground/80">
                     Channel Type
                   </FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl className="bg-discord-gray4">
                       <SelectTrigger className="capitalize">
                         <SelectValue placeholder="Select a Channel type" />

@@ -3,12 +3,7 @@
 import { useRouter } from "next/navigation";
 
 // local imports
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { useModal } from "@/hooks/use-modal-store";
@@ -46,9 +41,7 @@ const InviteModal = () => {
   const handleNewLink = async () => {
     try {
       setIsLoading(true);
-      const response = await axios.patch(
-        `/api/servers/${server?.id}/invite-code`,
-      );
+      const response = await axios.patch(`/api/servers/${server?.id}/invite-code`);
       onOpen("invitation", { server: response.data });
     } catch (error) {
       console.error("Failed to generate link", error);
@@ -61,9 +54,7 @@ const InviteModal = () => {
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
       <DialogContent className="border-transparent bg-discord-gray2">
         <DialogHeader>
-          <DialogTitle className="text-center text-2xl font-bold">
-            Invite a friend
-          </DialogTitle>
+          <DialogTitle className="text-center text-2xl font-bold">Invite a friend</DialogTitle>
         </DialogHeader>
         <div>
           <Label className="font-semibold uppercase text-muted-foreground">
@@ -83,17 +74,9 @@ const InviteModal = () => {
               size="icon"
               className="relative bg-discord-gray1 hover:bg-discord-gray1"
             >
-              <CopyIcon
-                className={cn(
-                  "opacity-100 transition-all",
-                  isCopied && "opacity-0",
-                )}
-              />
+              <CopyIcon className={cn("opacity-100 transition-all", isCopied && "opacity-0")} />
               <CheckIcon
-                className={cn(
-                  "absolute opacity-0 transition-all",
-                  isCopied && "opacity-100",
-                )}
+                className={cn("absolute opacity-0 transition-all", isCopied && "opacity-100")}
               />
             </Button>
           </div>
@@ -104,9 +87,7 @@ const InviteModal = () => {
             onClick={handleNewLink}
           >
             Generate a new link
-            <RefreshCwIcon
-              className={cn("ml-2 h-4 w-4", isLoading && "animate-spin")}
-            />
+            <RefreshCwIcon className={cn("ml-2 h-4 w-4", isLoading && "animate-spin")} />
           </Button>
         </div>
       </DialogContent>

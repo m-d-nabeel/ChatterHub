@@ -33,12 +33,8 @@ const MembersModal = () => {
     <Dialog open={isModalOpen} onOpenChange={() => onClose()}>
       <DialogContent className="border-transparent bg-discord-gray2">
         <DialogHeader>
-          <DialogTitle className="text-center text-2xl font-bold">
-            Manage Members
-          </DialogTitle>
-          <DialogDescription className="text-center brightness-75">
-            {descText}
-          </DialogDescription>
+          <DialogTitle className="text-center text-2xl font-bold">Manage Members</DialogTitle>
+          <DialogDescription className="text-center brightness-75">{descText}</DialogDescription>
         </DialogHeader>
         <ScrollArea>
           {members.map((member) => (

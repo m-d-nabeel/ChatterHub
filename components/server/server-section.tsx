@@ -11,10 +11,7 @@ interface ChannelOptionsProps {
   channelLength: number;
 }
 
-const ChannelOptions = ({
-  channelType,
-  channelLength,
-}: ChannelOptionsProps) => {
+const ChannelOptions = ({ channelType, channelLength }: ChannelOptionsProps) => {
   const { onOpen } = useModal();
 
   const triggerRef = useRef<HTMLButtonElement>(null);

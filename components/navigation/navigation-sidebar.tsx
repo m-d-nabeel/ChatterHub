@@ -36,11 +36,7 @@ const NavigationSidebar = async () => {
           <div className="flex flex-col items-center justify-center gap-y-4">
             {servers.map((server) => (
               <div key={server.id} className="h-12 w-12">
-                <NavigationItem
-                  id={server.id}
-                  name={server.name}
-                  imageUrl={server.imageUrl}
-                />
+                <NavigationItem id={server.id} name={server.name} imageUrl={server.imageUrl} />
               </div>
             ))}
           </div>

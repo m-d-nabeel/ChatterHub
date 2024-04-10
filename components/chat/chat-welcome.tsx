@@ -17,9 +17,7 @@ const ChatWelcome = ({ type, name, imageUrl, hashTag }: ChatWelcomeProps) => {
           <HashIcon className="h-12 w-12 text-foreground" />
         </div>
       )}
-      {type === "conversation" && (
-        <UserAvatar imageUrl={imageUrl!} className="h-20 w-20" />
-      )}
+      {type === "conversation" && <UserAvatar imageUrl={imageUrl!} className="h-20 w-20" />}
       <h1 className="flex items-center text-3xl font-bold">
         {type === "channel" ? `Welcome to #${name}!` : `${name}`}
       </h1>

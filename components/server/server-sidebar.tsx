@@ -13,13 +13,7 @@ import ChannelOptions from "./server-section";
 import ServerChannels from "./server-channels";
 import { ScrollArea } from "../ui/scroll-area";
 import ServerSearch from "./server-search";
-import {
-  HashIcon,
-  Mic2Icon,
-  ShieldAlertIcon,
-  ShieldCheckIcon,
-  VideoIcon,
-} from "lucide-react";
+import { HashIcon, Mic2Icon, ShieldAlertIcon, ShieldCheckIcon, VideoIcon } from "lucide-react";
 import ServerMemberCard from "./server-member-card";
 
 interface ServerSidebarProps {
@@ -29,12 +23,8 @@ interface ServerSidebarProps {
 
 const roleIconMap = {
   [MemberRole.GUEST]: null,
-  [MemberRole.MODERATOR]: (
-    <ShieldCheckIcon className="mr-2 h-4 w-4 text-indigo-500" />
-  ),
-  [MemberRole.ADMIN]: (
-    <ShieldAlertIcon className="mr-2 h-4 w-4 text-rose-500" />
-  ),
+  [MemberRole.MODERATOR]: <ShieldCheckIcon className="mr-2 h-4 w-4 text-indigo-500" />,
+  [MemberRole.ADMIN]: <ShieldAlertIcon className="mr-2 h-4 w-4 text-rose-500" />,
 };
 
 const ServerSidebar = async ({ serverId, profileId }: ServerSidebarProps) => {
@@ -83,9 +73,7 @@ const ServerSidebar = async ({ serverId, profileId }: ServerSidebarProps) => {
     }
   });
 
-  const myMembership = server?.members.find(
-    (member) => member.profileId === profileId,
-  );
+  const myMembership = server?.members.find((member) => member.profileId === profileId);
 
   const myRole = myMembership?.role;
 
@@ -102,9 +90,7 @@ const ServerSidebar = async ({ serverId, profileId }: ServerSidebarProps) => {
                 data: textChannels.map((channel) => ({
                   id: channel.id,
                   name: channel.name,
-                  icon: (
-                    <HashIcon className="mr-3 h-5 w-5 text-muted-foreground" />
-                  ),
+                  icon: <HashIcon className="mr-3 h-5 w-5 text-muted-foreground" />,
                 })),
               },
               {
@@ -113,9 +99,7 @@ const ServerSidebar = async ({ serverId, profileId }: ServerSidebarProps) => {
                 data: audioChannels.map((channel) => ({
                   id: channel.id,
                   name: channel.name,
-                  icon: (
-                    <Mic2Icon className="mr-3 h-4 w-4 text-muted-foreground" />
-                  ),
+                  icon: <Mic2Icon className="mr-3 h-4 w-4 text-muted-foreground" />,
                 })),
               },
               {
@@ -124,9 +108,7 @@ const ServerSidebar = async ({ serverId, profileId }: ServerSidebarProps) => {
                 data: videoChannels.map((channel) => ({
                   id: channel.id,
                   name: channel.name,
-                  icon: (
-                    <VideoIcon className="mr-3 h-4 w-4 text-muted-foreground" />
-                  ),
+                  icon: <VideoIcon className="mr-3 h-4 w-4 text-muted-foreground" />,
                 })),
               },
               {
@@ -145,44 +127,23 @@ const ServerSidebar = async ({ serverId, profileId }: ServerSidebarProps) => {
       <Accordion type="multiple" className="h-full overflow-y-scroll px-3">
         {textChannels.length > 0 && (
           <AccordionItem value="item-1" className="border-transparent">
-            <ChannelOptions
-              channelType={ChannelType.TEXT}
-              channelLength={textChannels.length}
-            />
-            <ServerChannels
-              channels={textChannels}
-              type={ChannelType.TEXT}
-              role={myRole}
-            />
+            <ChannelOptions channelType={ChannelType.TEXT} channelLength={textChannels.length} />
+            <ServerChannels channels={textChannels} type={ChannelType.TEXT} role={myRole} />
           </AccordionItem>
         )}
         {audioChannels.length > 0 && (
           <AccordionItem value="item-2" className="border-transparent">
-            <ChannelOptions
-              channelType={ChannelType.AUDIO}
-              channelLength={audioChannels.length}
-            />
+            <ChannelOptions channelType={ChannelType.AUDIO} channelLength={audioChannels.length} />
             <AccordionContent>
-              <ServerChannels
-                channels={audioChannels}
-                type={ChannelType.AUDIO}
-                role={myRole}
-              />
+              <ServerChannels channels={audioChannels} type={ChannelType.AUDIO} role={myRole} />
             </AccordionContent>
           </AccordionItem>
         )}
         {videoChannels.length > 0 && (
           <AccordionItem value="item-3" className="border-transparent">
-            <ChannelOptions
-              channelType={ChannelType.VIDEO}
-              channelLength={videoChannels.length}
-            />
+            <ChannelOptions channelType={ChannelType.VIDEO} channelLength={videoChannels.length} />
             <AccordionContent>
-              <ServerChannels
-                channels={videoChannels}
-                type={ChannelType.VIDEO}
-                role={myRole}
-              />
+              <ServerChannels channels={videoChannels} type={ChannelType.VIDEO} role={myRole} />
             </AccordionContent>
           </AccordionItem>
         )}
@@ -192,10 +153,7 @@ const ServerSidebar = async ({ serverId, profileId }: ServerSidebarProps) => {
             <div className="ml-auto flex items-center bg-transparent px-1 transition-all hover:bg-transparent hover:text-foreground"></div>
           </AccordionTrigger>
           <AccordionContent>
-            <ServerMemberCard
-              members={server.members}
-              currentMemberProfileId={profileId}
-            />
+            <ServerMemberCard members={server.members} currentMemberProfileId={profileId} />
           </AccordionContent>
         </AccordionItem>
       </Accordion>

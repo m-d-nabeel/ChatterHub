@@ -22,9 +22,7 @@ export const MediaRoom = ({ chatId, video, audio }: MediaRoomProps) => {
     const name = user.fullName;
     (async () => {
       try {
-        const response = await fetch(
-          `/api/get-participant-token?room=${chatId}&username=${name}`,
-        );
+        const response = await fetch(`/api/get-participant-token?room=${chatId}&username=${name}`);
         const data = await response.json();
         setToken(data.token);
       } catch (error) {

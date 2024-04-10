@@ -70,9 +70,7 @@ const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
                     {...field}
                     ref={chatInputRef}
                     className="rounded-lg border-transparent bg-discord-gray2 px-14 py-6 ring-offset-transparent focus-visible:ring-transparent"
-                    placeholder={`Message ${
-                      type === "channel" ? "#" + name : name
-                    }`}
+                    placeholder={`Message ${type === "channel" ? "#" + name : name}`}
                     disabled={isLoading}
                   />
                   <button
@@ -82,11 +80,7 @@ const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
                   >
                     <PlusIcon className="h-5 w-5 text-discord-gray3" />
                   </button>
-                  <EmojiPicker
-                    onChange={(emoji: string) =>
-                      field.onChange(field.value + emoji)
-                    }
-                  />
+                  <EmojiPicker onChange={(emoji: string) => field.onChange(field.value + emoji)} />
                 </div>
               </FormControl>
             </FormItem>

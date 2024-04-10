@@ -4,10 +4,7 @@ import { Profile } from "@prisma/client";
 import { randomUUID } from "crypto";
 import { NextResponse } from "next/server";
 
-export async function PATCH(
-  req: Request,
-  { params }: { params: { serverId: string } },
-) {
+export async function PATCH(req: Request, { params }: { params: { serverId: string } }) {
   try {
     const profile = await currentProfile();
     if (!profile) {

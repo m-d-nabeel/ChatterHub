@@ -51,10 +51,7 @@ const ChatItem = ({
   const canDeleteMessage = !deleted && (isAdmin || isModerator || isOwner);
   const canEditMessage = !deleted && isOwner && !fileUrl;
   const isImage =
-    !!fileUrl &&
-    ["jpg", "jpeg", "png", "svg", "gif", "bmp", "webp"].includes(
-      fileType as string,
-    );
+    !!fileUrl && ["jpg", "jpeg", "png", "svg", "gif", "bmp", "webp"].includes(fileType as string);
   const handleMemberClick = () => {
     if (member.id === currentMember.id) return;
     router.push(`/servers/${params?.serverId}/conversations/${member.id}`);
@@ -78,11 +75,7 @@ const ChatItem = ({
       </div>
       <div className="flex w-full flex-col justify-center">
         <div onClick={handleMemberClick}>
-          <ChatItemHeader
-            member={member}
-            deleted={deleted}
-            timestamp={timestamp}
-          />
+          <ChatItemHeader member={member} deleted={deleted} timestamp={timestamp} />
         </div>
         {isImage && fileUrl && (
           <a
@@ -100,9 +93,7 @@ const ChatItem = ({
             />
           </a>
         )}
-        {!isImage && fileUrl && (
-          <ChatFileItem fileUrl={fileUrl} fileType={fileType as string} />
-        )}
+        {!isImage && fileUrl && <ChatFileItem fileUrl={fileUrl} fileType={fileType as string} />}
         {!isEditing && !fileUrl && (
           <p
             className={cn(
@@ -112,9 +103,7 @@ const ChatItem = ({
           >
             {content}
             {isUpdated && !deleted && (
-              <span className="mx-2 text-[10px] text-muted-foreground">
-                (edited)
-              </span>
+              <span className="mx-2 text-[10px] text-muted-foreground">(edited)</span>
             )}
           </p>
         )}

@@ -1,20 +1,12 @@
 "use client";
 
-import {
-  Edit2Icon,
-  HashIcon,
-  LockIcon,
-  Mic2Icon,
-  Trash2Icon,
-  VideoIcon,
-} from "lucide-react";
+import { Edit2Icon, HashIcon, LockIcon, Mic2Icon, Trash2Icon, VideoIcon } from "lucide-react";
 import { AccordionContent } from "../ui/accordion";
 import { Channel, ChannelType, MemberRole } from "@prisma/client";
 import { useParams, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useModal } from "@/hooks/use-modal-store";
 import ActionTooltip from "../action-tooltip";
-
 
 interface ServerChannelsProps {
   channels: Channel[];
@@ -78,8 +70,7 @@ const ServerChannels = ({ channels, type, role }: ServerChannelsProps) => {
           />
           <ActionTooltip label={channel.name} align="start">
             <div className="flex w-full items-center">
-              <IconMapping />{" "}
-              <span className="line-clamp-1">{channel.name}</span>
+              <IconMapping /> <span className="line-clamp-1">{channel.name}</span>
               {channel.name === "general" && (
                 <LockIcon className="ml-auto h-4 w-4 text-muted-foreground" />
               )}
@@ -89,17 +80,13 @@ const ServerChannels = ({ channels, type, role }: ServerChannelsProps) => {
             <div className="ml-auto flex items-center">
               <ActionTooltip label="Edit" align="start">
                 <Edit2Icon
-                  onClick={(e) =>
-                    handleChannelEditDelete(e, "editChannel", channel)
-                  }
+                  onClick={(e) => handleChannelEditDelete(e, "editChannel", channel)}
                   className="hidden h-5 w-5 rounded p-1 text-muted-foreground ring-discord-gray1 hover:ring-[2px] group-hover:block"
                 />
               </ActionTooltip>
               <ActionTooltip label="Delete" align="start">
                 <Trash2Icon
-                  onClick={(e) =>
-                    handleChannelEditDelete(e, "deleteChannel", channel)
-                  }
+                  onClick={(e) => handleChannelEditDelete(e, "deleteChannel", channel)}
                   className="hidden h-5 w-5 rounded p-1 text-rose-500 ring-discord-gray1 hover:ring-[2px] group-hover:block"
                 />
               </ActionTooltip>

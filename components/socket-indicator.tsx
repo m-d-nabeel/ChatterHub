@@ -10,10 +10,7 @@ export const SocketIndicator = ({ className }: { className?: string }) => {
     return (
       <Badge
         variant="outline"
-        className={cn(
-          "border-transparent bg-yellow-600 text-foreground",
-          className,
-        )}
+        className={cn("border-transparent bg-yellow-600 text-foreground", className)}
       >
         Fallback: Polling every 1s
       </Badge>
@@ -22,10 +19,7 @@ export const SocketIndicator = ({ className }: { className?: string }) => {
   return (
     <Badge
       variant="outline"
-      className={cn(
-        "border-transparent bg-emerald-600 text-foreground",
-        className,
-      )}
+      className={cn("border-transparent bg-emerald-600 text-foreground", className)}
     >
       Live: Real-time updates
     </Badge>

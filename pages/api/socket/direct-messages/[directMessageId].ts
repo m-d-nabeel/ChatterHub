@@ -4,10 +4,7 @@ import { NextApiResponseServerIO } from "@/types";
 import { MemberRole } from "@prisma/client";
 import { NextApiRequest } from "next";
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponseServerIO,
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponseServerIO) {
   if (req.method !== "DELETE" && req.method !== "PATCH") {
     return res.status(405).json({ error: "[SOCKET_HANDLET_ERROR]" });
   }

@@ -47,8 +47,12 @@ const ChatMessages = ({
   const queryKey = `chat:${chatId}`;
   const addKey = `chat:${chatId}:messages`;
   const updateKey = `chat:${chatId}:messages:update`;
-  const { data, fetchNextPage, isFetchingNextPage, hasNextPage, status } =
-    useChatQuery({ queryKey, apiUrl, paramKey, paramValue });
+  const { data, fetchNextPage, isFetchingNextPage, hasNextPage, status } = useChatQuery({
+    queryKey,
+    apiUrl,
+    paramKey,
+    paramValue,
+  });
   useChatSocket({ queryKey, updateKey, addKey });
   const chatRef = useRef<ElementRef<"div">>(null);
   const bottomRef = useRef<ElementRef<"div">>(null);
@@ -103,23 +107,21 @@ const ChatMessages = ({
         {data?.pages.map((group, i) => (
           <Fragment key={i}>
             {group &&
-              group.items.map(
-                (message: ChannelMessageWithMemberWithProfile) => (
-                  <ChatItem
-                    key={message.id}
-                    id={message.id}
-                    member={message.member}
-                    currentMember={member}
-                    content={message.content}
-                    fileUrl={message.fileUrl}
-                    deleted={message.deleted}
-                    isUpdated={message.createdAt !== message.updatedAt}
-                    timestamp={format(new Date(message.createdAt), DATE_FORMAT)}
-                    socketQuery={socketQuery}
-                    socketUrl={socketUrl}
-                  />
-                ),
-              )}
+              group.items.map((message: ChannelMessageWithMemberWithProfile) => (
+                <ChatItem
+                  key={message.id}
+                  id={message.id}
+                  member={message.member}
+                  currentMember={member}
+                  content={message.content}
+                  fileUrl={message.fileUrl}
+                  deleted={message.deleted}
+                  isUpdated={message.createdAt !== message.updatedAt}
+                  timestamp={format(new Date(message.createdAt), DATE_FORMAT)}
+                  socketQuery={socketQuery}
+                  socketUrl={socketUrl}
+                />
+              ))}
           </Fragment>
         ))}
       </div>

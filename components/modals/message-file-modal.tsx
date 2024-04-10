@@ -59,15 +59,13 @@ const MessageFileModal = () => {
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
       <DialogContent className="flex w-full flex-col items-center justify-center gap-y-8 border-transparent bg-discord-gray2">
         <DialogHeader>
-          <DialogTitle className="text-center text-2xl font-bold">
-            Add an attachment
-          </DialogTitle>
+          <DialogTitle className="text-center text-2xl font-bold">Add an attachment</DialogTitle>
           <DialogDescription className="text-center brightness-75">
             Send a file as a message
           </DialogDescription>
         </DialogHeader>
         <FileUpload
-          className="h-56 w-56 -mt-6"
+          className="-mt-6 h-56 w-56"
           value={fileUrl}
           onChange={(url) => {
             setFileUrl(url!);

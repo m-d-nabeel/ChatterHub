@@ -28,10 +28,7 @@ const ChatVideoButton = () => {
 
   return (
     <ActionTooltip label={tooltipLabel} side="bottom">
-      <button
-        onClick={handleClick}
-        className="mr-4 bg-transparent transition hover:opacity-75"
-      >
+      <button onClick={handleClick} className="mr-4 bg-transparent transition hover:opacity-75">
         <Icon className="h-6 w-6 text-muted-foreground" />
       </button>
     </ActionTooltip>

@@ -5,7 +5,7 @@ import { Profile } from "@prisma/client";
 import { redirect } from "next/navigation";
 
 const InvitePage = async ({ params }: { params: { inviteCode: string } }) => {
-  const profile  = await currentProfile();
+  const profile = await currentProfile();
   if (!profile) {
     return redirectToSignIn();
   }

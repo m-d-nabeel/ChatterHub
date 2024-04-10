@@ -75,15 +75,11 @@ const ChatItemUpdateForm = ({
                 <div className="relative my-2 flex w-full items-center">
                   <Input
                     {...field}
-                    className="rounded-lg border-none bg-discord-gray2 group-hover:contrast-75 px-6 py-6 pr-14 ring-offset-transparent focus-visible:ring-transparent"
+                    className="rounded-lg border-none bg-discord-gray2 px-6 py-6 pr-14 ring-offset-transparent focus-visible:ring-transparent group-hover:contrast-75"
                     placeholder=""
                     disabled={isLoading}
                   />
-                  <EmojiPicker
-                    onChange={(emoji: string) =>
-                      field.onChange(field.value + emoji)
-                    }
-                  />
+                  <EmojiPicker onChange={(emoji: string) => field.onChange(field.value + emoji)} />
                 </div>
               </FormControl>
             </FormItem>

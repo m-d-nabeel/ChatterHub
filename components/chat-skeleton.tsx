@@ -2,18 +2,7 @@
 import { cn } from "@/lib/utils";
 import { Skeleton } from "./ui/skeleton";
 const ChatSkeleton = ({ className }: { className?: string }) => {
-  const randomWidths = [
-    "83%",
-    "60%",
-    "40%",
-    "90%",
-    "75%",
-    "65%",
-    "45%",
-    "63%",
-    "76%",
-    "50%",
-  ];
+  const randomWidths = ["83%", "60%", "40%", "90%", "75%", "65%", "45%", "63%", "76%", "50%"];
   return (
     <div className={cn("space-y-2 overflow-y-auto px-4", className)}>
       {["a", "b", "c", "d", "e", "f", "g", "h", "i"].map((c, index) => (

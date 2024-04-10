@@ -58,9 +58,8 @@ const LeaveServerModal = () => {
             <span className="pt-2 brightness-75">{server?.name}</span>&apos;
           </DialogTitle>
           <DialogDescription className="text-sm font-semibold text-muted-foreground">
-            Are you sure you want to leave{" "}
-            <span className="brightness-150">{server?.name}</span> ? You
-            won&apos;t be able to re-join the server unless you are re-invited.
+            Are you sure you want to leave <span className="brightness-150">{server?.name}</span> ?
+            You won&apos;t be able to re-join the server unless you are re-invited.
           </DialogDescription>
         </DialogHeader>
         <div className="flex w-full justify-end gap-x-3 bg-discord-gray3 px-3 py-3">

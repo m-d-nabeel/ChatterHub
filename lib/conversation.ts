@@ -1,9 +1,6 @@
 import prismadb from "./db";
 
-export const getConversation = async (
-  memberOneId: string,
-  memberTwoId: string,
-) => {
+export const getConversation = async (memberOneId: string, memberTwoId: string) => {
   try {
     if (memberOneId === memberTwoId) {
       return null;
@@ -13,7 +10,7 @@ export const getConversation = async (
       (await findConversation(memberTwoId, memberOneId));
     if (!conversation) {
       conversation = await createConversation(memberOneId, memberTwoId);
-    }    
+    }
     return conversation;
   } catch (error) {
     console.error(error);

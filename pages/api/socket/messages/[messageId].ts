@@ -4,10 +4,7 @@ import { NextApiResponseServerIO } from "@/types";
 import { MemberRole } from "@prisma/client";
 import { NextApiRequest } from "next";
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponseServerIO,
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponseServerIO) {
   if (req.method !== "DELETE" && req.method !== "PATCH") {
     return res.status(405).json({ error: "[SOCKET_HANDLET_ERROR]" });
   }
@@ -20,9 +17,7 @@ export default async function handler(
       return res.status(401).json({ error: "Invalid profile" });
     }
     if (!serverId || !channelId || !messageId) {
-      return res
-        .status(400)
-        .json({ error: "ServerId or ChannelId or MessageId is missing" });
+      return res.status(400).json({ error: "ServerId or ChannelId or MessageId is missing" });
     }
 
     const server = await prismadb.server.findFirst({
@@ -50,9 +45,7 @@ export default async function handler(
     if (!channel) {
       return res.status(404).json({ error: "channel not found" });
     }
-    const member = server.members.find(
-      (member) => member.profileId === profile.id,
-    );
+    const member = server.members.find((member) => member.profileId === profile.id);
     if (!member) {
       return res.status(404).json({ error: "member not found" });
     }

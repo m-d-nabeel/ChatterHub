@@ -42,11 +42,7 @@ const ChannelPage = async ({ params }: ChannelPageProps) => {
 
   return (
     <div className="flex h-full w-full flex-col">
-      <ChatHeader
-        name={channel.name}
-        serverId={channel.serverId}
-        type={"channel"}
-      />
+      <ChatHeader name={channel.name} serverId={channel.serverId} type={"channel"} />
       {channel.type === ChannelType.TEXT ? (
         <>
           <ChatMessages

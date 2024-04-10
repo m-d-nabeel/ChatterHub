@@ -8,12 +8,8 @@ import { cn } from "@/lib/utils";
 
 const roleIconMap = {
   [MemberRole.GUEST]: null,
-  [MemberRole.MODERATOR]: (
-    <ShieldCheckIcon className="mr-2 h-4 w-4 text-indigo-500" />
-  ),
-  [MemberRole.ADMIN]: (
-    <ShieldAlertIcon className="mr-2 h-4 w-4 text-rose-500" />
-  ),
+  [MemberRole.MODERATOR]: <ShieldCheckIcon className="mr-2 h-4 w-4 text-indigo-500" />,
+  [MemberRole.ADMIN]: <ShieldAlertIcon className="mr-2 h-4 w-4 text-rose-500" />,
 };
 
 interface ServerMemberCardProps {
@@ -21,10 +17,7 @@ interface ServerMemberCardProps {
   currentMemberProfileId: string;
 }
 
-const ServerMemberCard = ({
-  members,
-  currentMemberProfileId,
-}: ServerMemberCardProps) => {
+const ServerMemberCard = ({ members, currentMemberProfileId }: ServerMemberCardProps) => {
   const router = useRouter();
   const params = useParams();
   const handleMemberClick = (memberId: string) => {
@@ -37,8 +30,7 @@ const ServerMemberCard = ({
           key={member.id}
           className={cn(
             "mt-4 flex select-none items-center gap-x-3 text-xs",
-            member.profileId === currentMemberProfileId &&
-              "pointer-events-none",
+            member.profileId === currentMemberProfileId && "pointer-events-none",
           )}
         >
           <div onClick={() => handleMemberClick(member.id)}>
@@ -49,10 +41,7 @@ const ServerMemberCard = ({
           </div>
           <div className="flex flex-col gap-y-1">
             <div className="flex items-center gap-x-2 font-semibold">
-              <p
-                className="hover:cursor-pointer"
-                onClick={() => handleMemberClick(member.id)}
-              >
+              <p className="hover:cursor-pointer" onClick={() => handleMemberClick(member.id)}>
                 {member.profile.name}
               </p>
               {currentMemberProfileId === member.profileId && (

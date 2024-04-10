@@ -23,11 +23,7 @@ const roleIconMap = {
     </ActionTooltip>
   ),
 };
-const ChatItemHeader = ({
-  member,
-  deleted,
-  timestamp,
-}: ChatItemHeaderProps) => {
+const ChatItemHeader = ({ member, deleted, timestamp }: ChatItemHeaderProps) => {
   return (
     <div className="flex items-center gap-x-3">
       <span
@@ -39,9 +35,7 @@ const ChatItemHeader = ({
         {member.profile.name}
         {roleIconMap[member.role]}
       </span>
-      <span className="flex items-end text-xs text-muted-foreground">
-        {timestamp}
-      </span>
+      <span className="flex items-end text-xs text-muted-foreground">{timestamp}</span>
     </div>
   );
 };

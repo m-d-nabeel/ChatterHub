@@ -16,9 +16,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponseServerIO) => {
       return res.status(401).json({ error: "Invalid profile" });
     }
     if (!serverId || !channelId) {
-      return res
-        .status(400)
-        .json({ error: "ServerId or ChannelId is missing" });
+      return res.status(400).json({ error: "ServerId or ChannelId is missing" });
     }
     if (!content && !fileUrl) {
       return res.status(400).json({ error: "Invalid Message" });
@@ -51,9 +49,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponseServerIO) => {
       return res.status(404).json({ error: "channel not found" });
     }
 
-    const member = server.members.find(
-      (member) => member.profileId === profile.id,
-    );
+    const member = server.members.find((member) => member.profileId === profile.id);
     if (!member) {
       return res.status(404).json({ error: "member not found" });
     }
@@ -74,7 +70,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponseServerIO) => {
     });
 
     const channelKey = `chat:${channelId}:messages`;
-    
+
     res?.socket?.server?.io?.emit(channelKey, message);
 
     return res.status(200).json(message);

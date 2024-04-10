@@ -125,27 +125,19 @@ const MemberCard = ({
                   >
                     <DropdownMenuItem
                       className="cursor-pointer"
-                      onClick={() =>
-                        handleRoleChange(member.id, MemberRole.GUEST)
-                      }
+                      onClick={() => handleRoleChange(member.id, MemberRole.GUEST)}
                     >
                       <ShieldIcon className="mr-2 h-4 w-4" />
                       Guest
-                      {member.role === "GUEST" && (
-                        <CheckIcon className="ml-auto h-4 w-4" />
-                      )}
+                      {member.role === "GUEST" && <CheckIcon className="ml-auto h-4 w-4" />}
                     </DropdownMenuItem>
                     <DropdownMenuItem
                       className="cursor-pointer"
-                      onClick={() =>
-                        handleRoleChange(member.id, MemberRole.MODERATOR)
-                      }
+                      onClick={() => handleRoleChange(member.id, MemberRole.MODERATOR)}
                     >
                       <ShieldCheckIcon className="mr-2 h-4 w-4" />
                       Moderator
-                      {member.role === "MODERATOR" && (
-                        <CheckIcon className="ml-auto h-4 w-4" />
-                      )}
+                      {member.role === "MODERATOR" && <CheckIcon className="ml-auto h-4 w-4" />}
                     </DropdownMenuItem>
                   </DropdownMenuSubContent>
                 </DropdownMenuPortal>

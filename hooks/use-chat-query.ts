@@ -9,12 +9,7 @@ interface ChatQueryProps {
   paramValue: string;
 }
 
-export const useChatQuery = ({
-  queryKey,
-  apiUrl,
-  paramKey,
-  paramValue,
-}: ChatQueryProps) => {
+export const useChatQuery = ({ queryKey, apiUrl, paramKey, paramValue }: ChatQueryProps) => {
   const { isConnected } = useSocket();
   const fetchMessages = async ({ pageParam = undefined }) => {
     const url = qs.stringifyUrl(
@@ -32,14 +27,13 @@ export const useChatQuery = ({
     return res.json();
   };
 
-  const { data, fetchNextPage, status, isFetchingNextPage, hasNextPage } =
-    useInfiniteQuery({
-      queryKey: [queryKey],
-      queryFn: fetchMessages,
-      getNextPageParam: (lastPage) => lastPage?.nextCursor,
-      // connected websocket will take care of message fetching primarily
-      // secondary fallback == polling -->
-      refetchInterval: isConnected ? false : 1000,
-    });
+  const { data, fetchNextPage, status, isFetchingNextPage, hasNextPage } = useInfiniteQuery({
+    queryKey: [queryKey],
+    queryFn: fetchMessages,
+    getNextPageParam: (lastPage) => lastPage?.nextCursor,
+    // connected websocket will take care of message fetching primarily
+    // secondary fallback == polling -->
+    refetchInterval: isConnected ? false : 1000,
+  });
   return { data, fetchNextPage, status, isFetchingNextPage, hasNextPage };
 };

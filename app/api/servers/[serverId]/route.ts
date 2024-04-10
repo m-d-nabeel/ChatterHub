@@ -3,10 +3,7 @@ import prismadb from "@/lib/db";
 import { Profile } from "@prisma/client";
 import { NextResponse } from "next/server";
 
-export async function DELETE(
-  req: Request,
-  { params }: { params: { serverId: string } },
-) {
+export async function DELETE(req: Request, { params }: { params: { serverId: string } }) {
   try {
     const profile = await currentProfile();
     if (!profile) {
@@ -28,10 +25,7 @@ export async function DELETE(
   }
 }
 
-export async function PATCH(
-  req: Request,
-  { params }: { params: { serverId: string } },
-) {
+export async function PATCH(req: Request, { params }: { params: { serverId: string } }) {
   try {
     const { name, imageUrl } = await req.json();
     if (!name || !imageUrl) {

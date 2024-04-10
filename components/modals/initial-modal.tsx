@@ -15,14 +15,7 @@ import * as z from "zod";
 import axios from "axios";
 
 // local imports
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "../ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
@@ -80,9 +73,7 @@ const InitialModal = ({ name }: { name: string }) => {
     <Dialog open>
       <DialogContent className="border-transparent bg-discord-gray2">
         <DialogHeader>
-          <DialogTitle className="text-center text-2xl font-bold">
-            Create your server
-          </DialogTitle>
+          <DialogTitle className="text-center text-2xl font-bold">Create your server</DialogTitle>
           <DialogDescription className="text-center brightness-75">
             Your server is where you and your friends hang out.
             <br />

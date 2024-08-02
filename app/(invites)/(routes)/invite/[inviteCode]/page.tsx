@@ -1,13 +1,12 @@
 import { currentProfile } from "@/lib/current-profile";
 import prismadb from "@/lib/db";
-import { redirectToSignIn } from "@clerk/nextjs";
-import { Profile } from "@prisma/client";
+import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
 const InvitePage = async ({ params }: { params: { inviteCode: string } }) => {
-  const profile  = await currentProfile();
+  const profile = await currentProfile();
   if (!profile) {
-    return redirectToSignIn();
+    return auth().redirectToSignIn();
   }
   if (!params.inviteCode) {
     return redirect("/");

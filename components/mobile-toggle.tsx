@@ -3,12 +3,12 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import NavigationSidebar from "./navigation/navigation-sidebar";
 import ServerSidebar from "./server/server-sidebar";
 import { currentProfile } from "@/lib/current-profile";
-import { redirectToSignIn } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 
 const MobileToggle = async ({ serverId }: { serverId: string }) => {
   const profile = await currentProfile();
   if (!profile) {
-    return redirectToSignIn();
+    return auth().redirectToSignIn();
   }
   return (
     <Sheet>

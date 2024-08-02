@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import prismadb from "./db";
 
 export const getConversation = async (

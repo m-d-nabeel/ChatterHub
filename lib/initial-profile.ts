@@ -1,11 +1,11 @@
-import { currentUser, redirectToSignIn } from "@clerk/nextjs";
+import { currentUser, auth } from "@clerk/nextjs/server";
 import prismadb from "./db";
 
 export const initialProfile = async () => {
   try {
     const current_user = await currentUser();
     if (!current_user) {
-      return redirectToSignIn();
+      return auth().redirectToSignIn();
     }
     const profile = await prismadb.profile.findUnique({
       where: {

@@ -5,7 +5,7 @@ import { MediaRoom } from "@/components/media-room";
 import { getConversation } from "@/lib/conversation";
 import { currentProfile } from "@/lib/current-profile";
 import prismadb from "@/lib/db";
-import { redirectToSignIn } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
 interface ConversationPageProps {
@@ -23,7 +23,7 @@ const ConversationPage = async ({
 }: ConversationPageProps) => {
   const profile = await currentProfile();
   if (!profile) {
-    return redirectToSignIn();
+    return auth().redirectToSignIn();
   }
   const currentMember = await prismadb.member.findFirst({
     where: {

@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { getAuth } from "@clerk/nextjs/server";
 import { NextApiRequest } from "next";
 import prismadb from "@/lib/db";

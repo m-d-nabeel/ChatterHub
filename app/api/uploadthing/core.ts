@@ -1,4 +1,6 @@
-import { auth } from "@clerk/nextjs";
+export const dynamic = "force-dynamic";
+
+import { auth } from "@clerk/nextjs/server";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 
 const f = createUploadthing();
@@ -13,10 +15,10 @@ const handleAuth = () => {
 export const ourFileRouter = {
   serverImage: f({ image: { maxFileSize: "4MB", maxFileCount: 1 } })
     .middleware(() => handleAuth())
-    .onUploadComplete(({ metadata, file }) => {}),
+    .onUploadComplete(({ metadata, file }) => { }),
   messageFile: f(["image", "pdf", "video", "text"])
     .middleware(() => handleAuth())
-    .onUploadComplete(() => {}),
+    .onUploadComplete(() => { }),
 } satisfies FileRouter;
 
 export type OurFileRouter = typeof ourFileRouter;

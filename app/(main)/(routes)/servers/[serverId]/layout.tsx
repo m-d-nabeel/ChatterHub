@@ -1,8 +1,7 @@
 import ServerSidebar from "@/components/server/server-sidebar";
 import { currentProfile } from "@/lib/current-profile";
 import prismadb from "@/lib/db";
-import { redirectToSignIn } from "@clerk/nextjs";
-import { Profile } from "@prisma/client";
+import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { FC, ReactNode } from "react";
 
@@ -17,7 +16,7 @@ const ServerIdLayout: FC<ServerIdLayoutProps> = async ({
 }) => {
   const profile = await currentProfile();
   if (!profile) {
-    return redirectToSignIn();
+    return auth().redirectToSignIn();
   }
 
   const server = await prismadb.server.findUnique({

@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { redirect } from "next/navigation";
 import prismadb from "@/lib/db";
 import InitialModal from "@/components/modals/initial-modal";

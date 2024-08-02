@@ -1,6 +1,8 @@
+export const dynamic = "force-dynamic";
+
 import { currentProfile } from "@/lib/current-profile";
 import prismadb from "@/lib/db";
-import { MemberRole, Profile } from "@prisma/client";
+import { MemberRole } from "@prisma/client";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {

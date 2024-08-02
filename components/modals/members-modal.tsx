@@ -23,6 +23,9 @@ const MembersModal = () => {
     return null;
   }
   const members = server.members;
+  if (!members) {
+    return null;
+  }
   let descText: string;
   if (members.length > 1) {
     descText = members.length.toString() + " " + "Members";

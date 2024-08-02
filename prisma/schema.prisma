@@ -6,9 +6,10 @@ generator client {
 }
 
 datasource db {
-  provider     = "mysql"
-  url          = env("DATABASE_URL")
-  relationMode = "prisma"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  // uncomment next line if you use Prisma <5.10
+  // directUrl = env("DATABASE_URL_UNPOOLED")
 }
 
 model Category {
@@ -17,17 +18,15 @@ model Category {
   companions Companion[]
 }
 
-// db.Text make it longer and searchable
-
 model Companion {
   id           String    @id @default(uuid())
   userId       String
   userName     String
   src          String
-  name         String    @db.Text
+  name         String
   description  String
-  instructions String    @db.Text
-  seed         String    @db.Text
+  instructions String
+  seed         String
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
   categoryId   String
@@ -35,7 +34,7 @@ model Companion {
   messages     Message[]
 
   @@index([categoryId])
-  @@fulltext([name])
+  @@index([name])
 }
 
 enum Role {
@@ -46,7 +45,7 @@ enum Role {
 model Message {
   id          String    @id @default(uuid())
   role        Role
-  content     String    @db.Text
+  content     String
   created_at  DateTime  @default(now())
   updated_at  DateTime  @updatedAt
   companionId String
@@ -71,8 +70,8 @@ model Profile {
   id        String    @id @default(uuid())
   userId    String    @unique
   name      String
-  imageUrl  String    @db.Text
-  email     String    @db.Text
+  imageUrl  String
+  email     String
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   servers   Server[]
@@ -83,7 +82,7 @@ model Profile {
 model Server {
   id         String    @id @default(uuid())
   name       String
-  imageUrl   String    @db.Text
+  imageUrl   String
   inviteCode String    @unique
   profileId  String
   profile    Profile   @relation(fields: [profileId], references: [id], onDelete: Cascade)
@@ -143,8 +142,8 @@ model Channel {
 
 model ChannelMessage {
   id        String   @id @default(uuid())
-  content   String   @db.Text
-  fileUrl   String?  @db.Text
+  content   String
+  fileUrl   String?
   memberId  String
   member    Member   @relation(fields: [memberId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   channelId String
@@ -172,8 +171,8 @@ model Conversation {
 
 model DirectMessage {
   id             String       @id @default(uuid())
-  content        String       @db.Text
-  fileUrl        String?      @db.Text
+  content        String
+  fileUrl        String?
   memberId       String
   member         Member       @relation(fields: [memberId], references: [id], onDelete: Cascade)
   conversationId String
